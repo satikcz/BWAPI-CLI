@@ -16,7 +16,8 @@ To use AI you have to place Broodwar.dll, BroodwarLoader.dll and BroodwarLoader.
 
 ## Original Version
 This one is ported from https://github.com/Lamarth/BWAPI-CLI
-That was a port of BWAPI-CLI for version 3.7.3 was created by ZeroFusion at http://bwapicli.codeplex.com/
+
+That was a port of BWAPI-CLI for version 3.7.3 created by ZeroFusion at http://bwapicli.codeplex.com/
 
 ## Issues
 This project a port from https://github.com/Lamarth/BWAPI-CLI with some small changes to make it somehow compile and run with one bugfix (there were some upgrade enum errors that shifted few enum entries).
