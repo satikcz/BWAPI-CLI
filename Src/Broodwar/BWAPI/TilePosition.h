@@ -46,6 +46,13 @@ namespace BroodWar
             virtual int GetHashCode() override;
             virtual bool Equals(Object^ o) override;
             bool Equals(TilePosition^ other);
+            virtual String^ ToString() override
+            {
+              if (IsNone) return "None";
+              else if (IsUnknown) return "Unknown";
+              else if (IsInvalid) return "Invalid";
+              else return "Tile X: " + X + ", Y: " + Y;
+            }
 
             static bool operator == (TilePosition^ first, TilePosition^ second);
             static bool operator != (TilePosition^ first, TilePosition^ second);

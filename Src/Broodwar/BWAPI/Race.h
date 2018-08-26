@@ -52,11 +52,11 @@ namespace BroodWar
 			property UnitType^ Worker { UnitType^ get(); }
 
 			/// <summary>
-			/// Returns the center unit type for the given race. For example Races::Terran.getCenter() will return a pointer to UnitTypes::Terran_Command_Center.
+			/// Returns the resource depot for the given race. For example Races::Terran.ResourceDepot() will return a pointer to UnitTypes::Terran_Command_Center.
 			/// While there are three center types for Zerg (Hatchery, Lair, and Hive), Races::Zerg.getCenter() will only return a pointer to UnitTypes::Zerg_Hatchery,
 			/// since it is the unit type needed to make a new center
 			/// </summary>
-			property UnitType^ Center { UnitType^ get(); }
+      property UnitType^ ResourceDepot { UnitType^ get(); }
 
 			/// <summary>
 			/// Returns the refinery unit type for the given race. For example: Races::Zerg.getRefinery() will return a pointer to UnitTypes::Zerg_Extractor?

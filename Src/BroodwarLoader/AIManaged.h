@@ -11,6 +11,7 @@ namespace BroodWar
 		internal:
 			static AIManaged();
 
+      static void Reload();
 			static void Start();
 			static void End(bool isWinner);
 			static void Frame();

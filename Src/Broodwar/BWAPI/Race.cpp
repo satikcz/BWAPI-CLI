@@ -94,10 +94,10 @@ namespace BroodWar
 			return ConvertUnitType(instance->getWorker());
 		}
 
-		Api::UnitType^ Race::Center::get()
-		{
-			return ConvertUnitType(instance->getCenter());
-		}
+    Api::UnitType^ Race::ResourceDepot::get()
+    {
+      return ConvertUnitType(instance->getResourceDepot());
+    }
 
 		Api::UnitType^ Race::Refinery::get()
 		{

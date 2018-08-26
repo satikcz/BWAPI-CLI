@@ -431,6 +431,10 @@ namespace BroodWar
 			virtual int GetHashCode() override;
 			virtual bool Equals(Object^ o) override;
 			bool Equals(UnitType^ other);
+      virtual String^ ToString() override
+      {
+        return Type.ToString();
+      }
 
 			static property List<UnitType^>^ AllUnitTypes { List<UnitType^>^ get(); }
 			static property List<UnitType^>^ AllMacroTypes { List<UnitType^>^ get(); }

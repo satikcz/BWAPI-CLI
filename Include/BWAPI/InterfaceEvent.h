@@ -7,7 +7,7 @@ namespace BWAPI
   /// register powerful conditional callbacks that can be executed a user-specified number of
   /// times.</summary>
   ///
-  /// @tparam T
+  /// @param T
   ///     The interface that this class is being used for.
   ///
   /// @see Interface::registerEvent

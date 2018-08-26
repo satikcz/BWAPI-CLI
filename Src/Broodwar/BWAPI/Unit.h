@@ -563,6 +563,12 @@ namespace BroodWar
 			/// </summary>
 			property bool IsFollowing { bool get(); }
 
+      /// <summary>
+      /// Returns true if the unit is flying.
+      /// \see Unit::follow, Unit::getTarget
+      /// </summary>
+      property bool IsFlying { bool get(); }
+
 			/// <summary>
 			/// Returns true if the unit is in one of the four states for gathering gas (MoveToGas, WaitForGas, HarvestGas, ReturnGas).
 			/// \see Unit::isCarryingGas
@@ -1026,6 +1032,10 @@ namespace BroodWar
 			virtual int GetHashCode() override;
 			virtual bool Equals(Object^ o) override;
 			bool Equals(Unit^ other);
+      virtual String^ ToString() override
+      {
+        return UnitType->ToString() + " @ " + Position;
+      }
 
 			static bool operator == (Unit^ first, Unit^ second);
 			static bool operator != (Unit^ first, Unit^ second);

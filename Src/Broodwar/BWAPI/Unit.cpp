@@ -536,6 +536,11 @@ namespace BroodWar
 			return instance->isFollowing();
 		}
 
+    bool Unit::IsFlying::get()
+    {
+      return instance->isFlying();
+    }
+
 		bool Unit::IsGatheringGas::get()
 		{
 			return instance->isGatheringGas();

@@ -110,6 +110,8 @@ namespace BWAPI
 
     /// <summary>Retrieves the center-to-center distance between two regions.</summary>
     ///
+    /// @note Ignores all collisions.
+    ///
     /// <param name="other">
     ///   The target Region to calculate distance to.
     /// </param>
@@ -129,6 +131,6 @@ namespace BWAPI
     /// of \p pred.
     ///
     /// @see UnitFilter
-    Unitset getUnits(const UnitFilter &pred = __nullptr) const;
+    Unitset getUnits(const UnitFilter &pred = nullptr) const;
   };
 };

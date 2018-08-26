@@ -20,7 +20,7 @@ namespace BWAPI
     Position getCenter() const;
 
     /// @copydoc RegionInterface::getUnits
-    Unitset getUnits(const UnitFilter &pred = __nullptr) const;
+    Unitset getUnits(const UnitFilter &pred = nullptr) const;
   };
 }
 

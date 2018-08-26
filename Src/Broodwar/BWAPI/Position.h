@@ -6,65 +6,74 @@
 
 #pragma managed
 
+using namespace System;
+
 namespace BroodWar
 {
-    // Can't use templates, because they're hard to consume in C#
-    // Can't use generics, because BWAPI::Point needs to be hidden away
-    // Probably should codegen somehow, to keep the copies in sync
-    namespace Api
-	{
-        ref class TilePosition;
-        ref class WalkPosition;
+  // Can't use templates, because they're hard to consume in C#
+  // Can't use generics, because BWAPI::Point needs to be hidden away
+  // Probably should codegen somehow, to keep the copies in sync
+  namespace Api
+  {
+    ref class TilePosition;
+    ref class WalkPosition;
 
-        public ref class Position
-		{
-        internal:
-			BWAPI::Position *instance;
-			bool dispose;
+    public ref class Position
+    {
+    internal:
+      BWAPI::Position *instance;
+      bool dispose;
 
-			Position(BWAPI::Position *position, bool takeOwnership);
-			Position(BWAPI::Position position);
-			~Position();
-			!Position();
+      Position(BWAPI::Position *position, bool takeOwnership);
+      Position(BWAPI::Position position);
+      ~Position();
+      !Position();
 
-		public:
-			Position();
-			Position(Position^ copy);
-            Position(int x, int y);
+    public:
+      Position();
+      Position(Position^ copy);
+      Position(int x, int y);
 
-            property int X { int get(); }
-			property int Y { int get(); }
-			property bool IsValid { bool get(); }
-			double CalcDistance(Position^ position);
-			int CalcApproximateDistance(Position^ position);
-            double CalcLength();
-			void MakeValid();
-			property bool IsInvalid { bool get(); }
-			property bool IsNone { bool get(); }
-			property bool IsUnknown { bool get(); }
+      property int X { int get(); }
+      property int Y { int get(); }
+      property bool IsValid { bool get(); }
+      double CalcDistance(Position^ position);
+      int CalcApproximateDistance(Position^ position);
+      double CalcLength();
+      void MakeValid();
+      property bool IsInvalid { bool get(); }
+      property bool IsNone { bool get(); }
+      property bool IsUnknown { bool get(); }
 
-			virtual int GetHashCode() override;
-			virtual bool Equals(Object^ o) override;
-			bool Equals(Position^ other);
+      virtual int GetHashCode() override;
+      virtual bool Equals(Object^ o) override;
+      bool Equals(Position^ other);
+      virtual String^ ToString() override
+      {
+        if (IsNone) return "None";
+        else if (IsUnknown) return "Unknown";
+        else if (IsInvalid) return "Invalid";
+        else return "Pixel X: " + X + ", Y: " + Y;
+      }
 
-			static bool operator == (Position^ first, Position^ second);
-			static bool operator != (Position^ first, Position^ second);
-			static bool operator < (Position^ first, Position^ second);
-			static Position^ operator + (Position^ first, Position^ second);
-			static Position^ operator - (Position^ first, Position^ second);
-            static Position^ operator * (Position^ first, int second);
-            static Position^ operator / (Position^ first, int second);
-            static Position^ operator += (Position^ first, Position^ second);
-			static Position^ operator -= (Position^ first, Position^ second);
-            static Position^ operator *= (Position^ first, int second);
-            static Position^ operator /= (Position^ first, int second);
+      static bool operator == (Position^ first, Position^ second);
+      static bool operator != (Position^ first, Position^ second);
+      static bool operator < (Position^ first, Position^ second);
+      static Position^ operator + (Position^ first, Position^ second);
+      static Position^ operator - (Position^ first, Position^ second);
+      static Position^ operator * (Position^ first, int second);
+      static Position^ operator / (Position^ first, int second);
+      static Position^ operator += (Position^ first, Position^ second);
+      static Position^ operator -= (Position^ first, Position^ second);
+      static Position^ operator *= (Position^ first, int second);
+      static Position^ operator /= (Position^ first, int second);
 
-            static Position^ Rescale(TilePosition^ position);
-            static Position^ Rescale(WalkPosition^ position);
-        };
+      static Position^ Rescale(TilePosition^ position);
+      static Position^ Rescale(WalkPosition^ position);
+    };
 
-		BWAPI::Position ConvertPosition(Position^ position);
-        Position^ ConvertPosition(BWAPI::Position position);
-        Position^ ConvertPosition(BWAPI::Position* position);
-    }
+    BWAPI::Position ConvertPosition(Position^ position);
+    Position^ ConvertPosition(BWAPI::Position position);
+    Position^ ConvertPosition(BWAPI::Position* position);
+  }
 }

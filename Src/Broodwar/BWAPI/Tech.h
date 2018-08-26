@@ -96,6 +96,11 @@ namespace BroodWar
 			virtual bool Equals(Object^ o) override;
 			bool Equals(Tech^ other);
 
+      virtual String^ ToString() override
+      {
+        return Type.ToString();
+      }
+
 			static property List<Tech^>^ AllTechs { List<Tech^>^ get(); }
 
 			static bool operator == (Tech^ first, Tech^ second);

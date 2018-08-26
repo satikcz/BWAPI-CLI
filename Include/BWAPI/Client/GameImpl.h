@@ -65,7 +65,7 @@ namespace BWAPI
       Playerset _enemies;
       Playerset _observers;
       mutable Error lastError;
-      Text::Size::Enum textSize;
+      Text::Size::Enum textSize = Text::Size::Default;
 
     public :
       Event makeEvent(BWAPIC::Event e);
@@ -114,8 +114,8 @@ namespace BWAPI
 
       virtual bool      isFlagEnabled(int flag) const override;
       virtual void      enableFlag(int flag) override;
-      virtual Unitset   getUnitsInRectangle(int left, int top, int right, int bottom, const UnitFilter &pred = __nullptr) const override;
-      virtual Unit getClosestUnitInRectangle(Position center, const UnitFilter &pred = __nullptr, int left = 0, int top = 0, int right = 999999, int bottom = 999999) const override;
+      virtual Unitset   getUnitsInRectangle(int left, int top, int right, int bottom, const UnitFilter &pred = nullptr) const override;
+      virtual Unit getClosestUnitInRectangle(Position center, const UnitFilter &pred = nullptr, int left = 0, int top = 0, int right = 999999, int bottom = 999999) const override;
       virtual Unit getBestUnit(const BestUnitFilter &best, const UnitFilter &pred, Position center = Positions::None, int radius = 999999) const override;
       virtual Error     getLastError() const override;
       virtual bool      setLastError(BWAPI::Error e = Errors::None) const override;
@@ -178,6 +178,7 @@ namespace BWAPI
       virtual int  getRemainingLatencyFrames() const override;
       virtual int  getRemainingLatencyTime() const override;
       virtual int  getRevision() const override;
+      virtual int  getClientVersion() const override;
       virtual bool isDebug() const override;
       virtual bool isLatComEnabled() const override;
       virtual void setLatCom(bool isEnabled) override;
@@ -196,5 +197,6 @@ namespace BWAPI
       virtual BWAPI::Region getRegionAt(int x, int y) const override;
       virtual int getLastEventTime() const override;
       virtual bool setRevealAll(bool reveal = true) override;
+      virtual unsigned getRandomSeed() const override;
   };
 }

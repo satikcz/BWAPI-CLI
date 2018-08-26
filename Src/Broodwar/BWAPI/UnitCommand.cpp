@@ -14,8 +14,8 @@ namespace BroodWar
 
 		BWAPI::UnitCommand ConvertUnitCommand(UnitCommand^ command)
 		{
-			if(command == nullptr)
-				return BWAPI::UnitCommand();
+			/*if(command == nullptr)
+				return BWAPI::UnitCommand();*/
 			return BWAPI::UnitCommand(*(command->instance));
 		}
 

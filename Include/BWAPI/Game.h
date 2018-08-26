@@ -342,9 +342,9 @@ namespace BWAPI
     ///
     /// @returns A Unitset object consisting of all the units that have any part of them on the
     /// given build tile.
-    Unitset getUnitsOnTile(int tileX, int tileY, const UnitFilter &pred = __nullptr) const;
+    Unitset getUnitsOnTile(int tileX, int tileY, const UnitFilter &pred = nullptr) const;
     /// @overload
-    Unitset getUnitsOnTile(BWAPI::TilePosition tile, const UnitFilter &pred = __nullptr) const;
+    Unitset getUnitsOnTile(BWAPI::TilePosition tile, const UnitFilter &pred = nullptr) const;
 
     /// <summary>Retrieves the set of accessible units that are in a given rectangle.</summary>
     ///
@@ -366,9 +366,9 @@ namespace BWAPI
     ///
     /// @returns A Unitset object consisting of all the units that have any part of them within the
     /// given rectangle bounds.
-    virtual Unitset getUnitsInRectangle(int left, int top, int right, int bottom, const UnitFilter &pred = __nullptr) const = 0;
+    virtual Unitset getUnitsInRectangle(int left, int top, int right, int bottom, const UnitFilter &pred = nullptr) const = 0;
     /// @overload
-    Unitset getUnitsInRectangle(BWAPI::Position topLeft, BWAPI::Position bottomRight, const UnitFilter &pred = __nullptr) const;
+    Unitset getUnitsInRectangle(BWAPI::Position topLeft, BWAPI::Position bottomRight, const UnitFilter &pred = nullptr) const;
 
     /// <summary>Retrieves the set of accessible units that are within a given radius of a
     /// position.</summary>
@@ -388,9 +388,9 @@ namespace BWAPI
     ///
     /// @returns A Unitset object consisting of all the units that have any part of them within the
     /// given radius from the center position.
-    Unitset getUnitsInRadius(int x, int y, int radius, const UnitFilter &pred = __nullptr) const;
+    Unitset getUnitsInRadius(int x, int y, int radius, const UnitFilter &pred = nullptr) const;
     /// @overload
-    Unitset getUnitsInRadius(BWAPI::Position center, int radius, const UnitFilter &pred = __nullptr) const;
+    Unitset getUnitsInRadius(BWAPI::Position center, int radius, const UnitFilter &pred = nullptr) const;
 
     /// <summary>Retrieves the closest unit to center that matches the criteria of the callback
     /// pred within an optional radius.</summary>
@@ -410,7 +410,7 @@ namespace BWAPI
     /// @retval nullptr If a suitable unit was not found.
     ///
     /// @see getBestUnit, UnitFilter
-    Unit getClosestUnit(Position center, const UnitFilter &pred = __nullptr, int radius = 999999) const;
+    Unit getClosestUnit(Position center, const UnitFilter &pred = nullptr, int radius = 999999) const;
 
     /// <summary>Retrieves the closest unit to center that matches the criteria of the callback
     /// pred within an optional rectangle.</summary>
@@ -436,7 +436,7 @@ namespace BWAPI
     /// </param>
     ///
     /// @see UnitFilter
-    virtual Unit getClosestUnitInRectangle(Position center, const UnitFilter &pred = __nullptr, int left = 0, int top = 0, int right = 999999, int bottom = 999999) const = 0;
+    virtual Unit getClosestUnitInRectangle(Position center, const UnitFilter &pred = nullptr, int left = 0, int top = 0, int right = 999999, int bottom = 999999) const = 0;
 
     /// <summary>Compares all units with pred to determine which of them is the best.</summary>
     /// All units are checked. If center and radius are specified, then it will check all units
@@ -694,6 +694,10 @@ namespace BWAPI
     /// @note If the type is an addon and a builer is provided, then the location of the addon will
     /// be placed 4 tiles to the right and 1 tile down from the given \p position. If the builder
     /// is not given, then the check for the addon will be conducted at position.
+    ///
+    /// @note If \p type is UnitTypes::Special_Start_Location, then the area for a resource depot
+    /// (@Command_Center, @Hatchery, @Nexus) is checked as normal, but any potential obstructions
+    /// (existing structures, creep, units, etc.) are ignored.
     ///
     /// <param name="position">
     ///   Indicates the tile position that the top left corner of the structure is intended to go.
@@ -1326,6 +1330,14 @@ namespace BWAPI
     /// @threadsafe
     virtual int getRevision() const = 0;
 
+    /// <summary>Retrieves the version that the BWAPI client is using for compatibility checks.</summary>
+    ///
+    /// @returns The version number for the BWAPI client.
+    ///
+    /// @threadsafe
+    /// @since 4.2.0
+    virtual int getClientVersion() const = 0;
+
     /// <summary>Retrieves the debug state of the BWAPI build.</summary>
     ///
     /// @returns true if the BWAPI module is a DEBUG build, and false if it is a RELEASE build.
@@ -1428,9 +1440,12 @@ namespace BWAPI
 
     /// <summary>Checks if there is a path from source to destination.</summary> This only checks
     /// if the source position is connected to the destination position. This function does not
-    /// check if all  units can actually travel from source to destination. Because of this
+    /// check if all units can actually travel from source to destination. Because of this
     /// limitation, it has an O(1) complexity, and cases where this limitation hinders gameplay is
     /// uncommon at best.
+    ///
+    /// @note If making queries on a unit, it's better to call UnitInterface::hasPath, since it is
+    /// a more lenient version of this function that accounts for some edge cases.
     /// 
     /// <param name="source">
     ///   The source position.
@@ -1439,8 +1454,8 @@ namespace BWAPI
     ///   The destination position.
     /// </param>
     ///
-    /// @retval true if there is a path between the two positions
-    /// @retval false if there is no path
+    /// @returns true if there is a path between the two positions, and false if there is not.
+    /// @see UnitInterface::hasPath
     bool hasPath(Position source, Position destination) const;
 
     /// <summary>Sets the alliance state of the current player with the target player.</summary>
@@ -1703,6 +1718,14 @@ namespace BWAPI
     /// @returns The amount of damage that fromType would deal to toType.
     /// @see getDamageFrom
     int getDamageTo(UnitType toType, UnitType fromType, Player toPlayer = nullptr, Player fromPlayer = nullptr) const;
+
+    /// <summary>Retrieves the initial random seed that was used in this game's creation.</summary>
+    /// This is used to identify the seed that started this game, in case an error occurred, so
+    /// that developers can deterministically reproduce the error. Works in both games and replays.
+    ///
+    /// @returns This game's random seed.
+    /// @since 4.2.0
+    virtual unsigned getRandomSeed() const = 0;
   };
 
   extern Game *BroodwarPtr;

@@ -513,7 +513,7 @@ namespace BroodWar
 		OrderType->Add(&BWAPI::Orders::CastInfestation,        BroodWar::Api::Enum::OrderType::CastInfestation);
 		OrderType->Add(&BWAPI::Orders::InfestingCommandCenter, BroodWar::Api::Enum::OrderType::InfestingCommandCenter);
 		OrderType->Add(&BWAPI::Orders::PlaceBuilding,          BroodWar::Api::Enum::OrderType::PlaceBuilding);
-        OrderType->Add(&BWAPI::Orders::CreateProtossBuilding,  BroodWar::Api::Enum::OrderType::CreateProtossBuilding);
+    OrderType->Add(&BWAPI::Orders::CreateProtossBuilding,  BroodWar::Api::Enum::OrderType::CreateProtossBuilding);
 		OrderType->Add(&BWAPI::Orders::ConstructingBuilding,   BroodWar::Api::Enum::OrderType::ConstructingBuilding);
 		OrderType->Add(&BWAPI::Orders::Repair,                 BroodWar::Api::Enum::OrderType::Repair);
 		OrderType->Add(&BWAPI::Orders::PlaceAddon,             BroodWar::Api::Enum::OrderType::PlaceAddon);

@@ -34,18 +34,6 @@ namespace BroodWar
 			{
 				BWAPI::BWAPIClient.update();
 			}
-			
-			//GameData^ Client::Data::get()
-			//{
-			//	#pragma warning Implement
-			//	throw gcnew System::NotImplementedException();
-			//}
-
-			//void Client::Data::set(GameData^ value)
-			//{
-			//	#pragma warning Implement
-			//	throw gcnew System::NotImplementedException();
-			//}
 		}
 	}
 }

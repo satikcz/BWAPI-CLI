@@ -16,44 +16,48 @@ using namespace BroodWar::Api::Enum;
 
 namespace BroodWar
 {
-	namespace Api
-	{
-		ref class Player;
-		ref class Unit;
+  namespace Api
+  {
+    ref class Player;
+    ref class Unit;
 
-		public ref class Bullet sealed : public IIdentifiedObject
-		{
-		internal:
-			BWAPI::Bullet instance;
-				
-			Bullet(BWAPI::Bullet type);
+    public ref class Bullet sealed : public IIdentifiedObject
+    {
+    internal:
+      BWAPI::Bullet instance;
 
-		public:
-			virtual property int Id { int get(); }
+      Bullet(BWAPI::Bullet type);
 
-			property BulletType Type { BulletType get(); }
-			bool TypeEquals(BulletType type);
-			property Api::Player^ Player { Api::Player^ get(); }
-			property Unit^ Source { Unit^ get(); }
-			property Api::Position^ Position { Api::Position^ get(); }
-			property double Angle { double get(); }
-			property double VelocityX { double get(); }
-			property double VelocityY { double get(); }
-			property Unit^ Target { Unit^ get(); }
-			property Api::Position^ TargetPosition { Api::Position^ get(); }
-			property int RemoveTimer { int get(); }
-			property bool Exists { bool get(); }
-			bool IsVisible();
-			bool IsVisible(Api::Player^ player);
+    public:
+      virtual property int Id { int get(); }
 
-			virtual int GetHashCode() override;
-			virtual bool Equals(Object^ o) override;
-			bool Equals(Bullet^ other);
+      property BulletType Type { BulletType get(); }
+      bool TypeEquals(BulletType type);
+      property Api::Player^ Player { Api::Player^ get(); }
+      property Unit^ Source { Unit^ get(); }
+      property Api::Position^ Position { Api::Position^ get(); }
+      property double Angle { double get(); }
+      property double VelocityX { double get(); }
+      property double VelocityY { double get(); }
+      property Unit^ Target { Unit^ get(); }
+      property Api::Position^ TargetPosition { Api::Position^ get(); }
+      property int RemoveTimer { int get(); }
+      property bool Exists { bool get(); }
+      bool IsVisible();
+      bool IsVisible(Api::Player^ player);
 
-			static bool operator == (Bullet^ first, Bullet^ second);
-			static bool operator != (Bullet^ first, Bullet^ second);
-		};
+      virtual int GetHashCode() override;
+      virtual bool Equals(Object^ o) override;
+      bool Equals(Bullet^ other);
+      virtual String^ ToString() override
+      {
+        return Type.ToString() + " from " + Player;
+      }
 
-		Bullet^ ConvertBullet(BWAPI::Bullet bullet);
-	}
+      static bool operator == (Bullet^ first, Bullet^ second);
+      static bool operator != (Bullet^ first, Bullet^ second);
+    };
+
+    Bullet^ ConvertBullet(BWAPI::Bullet bullet);
+  }
 }
