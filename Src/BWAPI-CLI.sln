@@ -35,6 +35,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleTournamentModule", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{C1F6E7E2-8F27-488A-BA8D-A1CA4DA3A74D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Helper libs", "Helper libs", "{69EEE777-36F7-4A3A-9A70-5DDFFB9594C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpMapAnalyser", "SharpMapAnalyser\SharpMapAnalyser.csproj", "{9FE55207-AEFA-45F8-890B-59278F5288D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -124,6 +128,22 @@ Global
 		{7C4F6DF3-9495-47F4-81CB-22DAE4493DED}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{7C4F6DF3-9495-47F4-81CB-22DAE4493DED}.Release|Win32.ActiveCfg = Release|Any CPU
 		{7C4F6DF3-9495-47F4-81CB-22DAE4493DED}.Release|x86.ActiveCfg = Release|Any CPU
+		{9FE55207-AEFA-45F8-890B-59278F5288D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FE55207-AEFA-45F8-890B-59278F5288D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FE55207-AEFA-45F8-890B-59278F5288D8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{9FE55207-AEFA-45F8-890B-59278F5288D8}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{9FE55207-AEFA-45F8-890B-59278F5288D8}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{9FE55207-AEFA-45F8-890B-59278F5288D8}.Debug|Win32.Build.0 = Debug|Any CPU
+		{9FE55207-AEFA-45F8-890B-59278F5288D8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9FE55207-AEFA-45F8-890B-59278F5288D8}.Debug|x86.Build.0 = Debug|Any CPU
+		{9FE55207-AEFA-45F8-890B-59278F5288D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FE55207-AEFA-45F8-890B-59278F5288D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FE55207-AEFA-45F8-890B-59278F5288D8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{9FE55207-AEFA-45F8-890B-59278F5288D8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{9FE55207-AEFA-45F8-890B-59278F5288D8}.Release|Win32.ActiveCfg = Release|Any CPU
+		{9FE55207-AEFA-45F8-890B-59278F5288D8}.Release|Win32.Build.0 = Release|Any CPU
+		{9FE55207-AEFA-45F8-890B-59278F5288D8}.Release|x86.ActiveCfg = Release|Any CPU
+		{9FE55207-AEFA-45F8-890B-59278F5288D8}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -132,6 +152,7 @@ Global
 		{60ADD3FE-6C12-41D1-B469-D55A1BBD2C79} = {C1F6E7E2-8F27-488A-BA8D-A1CA4DA3A74D}
 		{9105589D-441A-4103-BF60-91F8FF12AA42} = {C1F6E7E2-8F27-488A-BA8D-A1CA4DA3A74D}
 		{7C4F6DF3-9495-47F4-81CB-22DAE4493DED} = {C1F6E7E2-8F27-488A-BA8D-A1CA4DA3A74D}
+		{9FE55207-AEFA-45F8-890B-59278F5288D8} = {69EEE777-36F7-4A3A-9A70-5DDFFB9594C0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A9F3A087-8438-4996-92FE-BF2BF7FD166D}

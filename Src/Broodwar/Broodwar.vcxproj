@@ -63,9 +63,13 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\..\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\..\Lib\Release;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Tools\msvc\14.13.26128\include;C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Tools\msvc\14.13.26128\atlmfc\include;C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\auxiliary\vs\include;C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt;$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
     <TargetName>Broodwar</TargetName>
+    <ExcludePath>$(ExcludePath)</ExcludePath>
+    <SourcePath>$(SourcePath)</SourcePath>
+    <LibraryWPath>$(LibraryWPath);$(WindowsSDK_MetadataPath);</LibraryWPath>
+    <ReferencePath>$(ReferencePath);$(VC_ReferencesPath_x86);</ReferencePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -116,6 +120,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
       <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
+      <AdditionalIncludeDirectories>..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -127,6 +132,7 @@
       <NoEntryPoint>false</NoEntryPoint>
       <AdditionalOptions>
       </AdditionalOptions>
+      <AdditionalLibraryDirectories>..\..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>sn -R "$(TargetPath)" "$(SolutionDir)bwapicli.snk"</Command>
