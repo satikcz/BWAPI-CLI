@@ -16,6 +16,7 @@ namespace BroodWar
 			public ref class Client abstract sealed
 			{
 			public:
+				static Client();
 				static property bool IsConnected { bool get(); }
 				static bool Connect();
 				static void Disconnect();

@@ -5,6 +5,7 @@
 #pragma warning(pop)
 
 extern BWAPI::Client BWAPI::BWAPIClient;
+extern bool isInitialised;
 
 namespace BroodWar
 {
@@ -12,6 +13,15 @@ namespace BroodWar
 	{
 		namespace Client
 		{
+			Client::Client()
+			{
+				if(!isInitialised)
+				{
+					isInitialised = true;
+					BWAPI::BWAPI_init();
+				}
+			}
+
 			bool Client::IsConnected::get()
 			{
 				return BWAPI::BWAPIClient.isConnected();
@@ -34,6 +44,18 @@ namespace BroodWar
 			{
 				BWAPI::BWAPIClient.update();
 			}
+			
+			//GameData^ Client::Data::get()
+			//{
+			//	#pragma warning Implement
+			//	throw gcnew System::NotImplementedException();
+			//}
+
+			//void Client::Data::set(GameData^ value)
+			//{
+			//	#pragma warning Implement
+			//	throw gcnew System::NotImplementedException();
+			//}
 		}
 	}
 }

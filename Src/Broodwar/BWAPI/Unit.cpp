@@ -17,21 +17,21 @@ namespace BroodWar
 {
 	namespace Api
 	{
-		Api::Unit^ ConvertUnit(BWAPI::Unit unit)
+		Api::Unit^ ConvertUnit(BWAPI::Unit* unit)
 		{
-			if(unit == nullptr)
+			if(unit == NULL)
 				return nullptr;
 			return gcnew Api::Unit(unit);
 		}
 
-		BWAPI::Unit ConvertUnit(Api::Unit^ unit)
+		BWAPI::Unit* ConvertUnit(Api::Unit^ unit)
 		{
 			if(unit == nullptr)
-				return nullptr;
+				return NULL;
 			return unit->instance;
 		}
 
-		Unit::Unit(BWAPI::Unit unit)
+		Unit::Unit(BWAPI::Unit* unit)
 		{
 			instance = unit;
 		}
@@ -63,7 +63,7 @@ namespace BroodWar
 
 		Api::TilePosition^ Unit::TilePosition::get()
 		{
-			return ConvertTilePosition(instance->getTilePosition());
+			return ConvertTile(instance->getTilePosition());
 		}
 
 		double Unit::Angle::get()
@@ -166,6 +166,11 @@ namespace BroodWar
 			return ConvertPlayer(instance->getLastAttackingPlayer());
 		}
 
+		int Unit::UpgradeLevel(Api::Upgrade^ upgrade)
+		{
+			return instance->getUpgradeLevel(*(upgrade->instance));
+		}
+
 		Api::UnitType^ Unit::InitialType::get()
 		{
 			return ConvertUnitType(instance->getInitialType());
@@ -178,7 +183,7 @@ namespace BroodWar
 
 		Api::TilePosition^ Unit::InitialTilePosition::get()
 		{
-			return ConvertTilePosition(instance->getInitialTilePosition());
+			return ConvertTile(instance->getInitialTilePosition());
 		}
 
 		int Unit::InitialHitPoints::get()
@@ -393,7 +398,7 @@ namespace BroodWar
 
 		HashSet<Api::Unit^>^ Unit::LoadedUnits::get()
 		{
-			return ToHashSet<BWAPI::Unit, Unit^>(instance->getLoadedUnits(), &ConvertUnit);
+			return ToHashSet<BWAPI::Unit*, Unit^>(instance->getLoadedUnits(), &ConvertUnit);
 		}
 
 		Api::Unit^ Unit::Carrier::get()
@@ -403,7 +408,7 @@ namespace BroodWar
 
 		HashSet<Api::Unit^>^ Unit::Interceptors::get()
 		{
-			return ToHashSet<BWAPI::Unit, Unit^>(instance->getInterceptors(), &ConvertUnit);
+			return ToHashSet<BWAPI::Unit*, Unit^>(instance->getInterceptors(), &ConvertUnit);
 		}
 
 		Api::Unit^ Unit::Hatchery::get()
@@ -413,17 +418,17 @@ namespace BroodWar
 
 		HashSet<Api::Unit^>^ Unit::Larva::get()
 		{
-			return ToHashSet<BWAPI::Unit, Unit^>(instance->getLarva(), &ConvertUnit);
+			return ToHashSet<BWAPI::Unit*, Unit^>(instance->getLarva(), &ConvertUnit);
 		}
 
 		HashSet<Api::Unit^>^ Unit::UnitsInRadius(int radius)
 		{
-			return ToHashSet<BWAPI::Unit, Unit^>(instance->getUnitsInRadius(radius), &ConvertUnit);
+			return ToHashSet<BWAPI::Unit*, Unit^>(instance->getUnitsInRadius(radius), &ConvertUnit);
 		}
 
 		HashSet<Api::Unit^>^ Unit::UnitsInWeaponRange(Api::Weapon^ weapon)
 		{
-			return ToHashSet<BWAPI::Unit, Unit^>(instance->getUnitsInWeaponRange(*(weapon->instance)), &ConvertUnit);
+			return ToHashSet<BWAPI::Unit*, Unit^>(instance->getUnitsInWeaponRange(*(weapon->instance)), &ConvertUnit);
 		}
 
 		IntPtr Unit::ClientInfo::get()
@@ -535,11 +540,6 @@ namespace BroodWar
 		{
 			return instance->isFollowing();
 		}
-
-    bool Unit::IsFlying::get()
-    {
-      return instance->isFlying();
-    }
 
 		bool Unit::IsGatheringGas::get()
 		{
@@ -696,9 +696,9 @@ namespace BroodWar
 			return instance->isUnderStorm();
 		}
 
-		bool Unit::IsPowered::get()
+		bool Unit::IsUnpowered::get()
 		{
-			return instance->isPowered();
+			return instance->isUnpowered();
 		}
 
 		bool Unit::IsUpgrading::get()
@@ -736,9 +736,9 @@ namespace BroodWar
 			return instance->attack(ConvertUnit(target), shiftQueueCommand);
 		}
 
-        bool Unit::Build(Api::Enum::UnitType type, Api::TilePosition^ target)
+		bool Unit::Build(Api::TilePosition^ target, Api::Enum::UnitType type)
 		{
-            return instance->build(EnumMapping::UnitType->Native(type), ConvertTilePosition(target));
+			return instance->build(ConvertTile(target), EnumMapping::UnitType->Native(type));
 		}
 
 		bool Unit::BuildAddon(Api::UnitType^ type)
@@ -853,7 +853,7 @@ namespace BroodWar
 
 		bool Unit::Land(Api::TilePosition^ target)
 		{
-			return instance->land(ConvertTilePosition(target));
+			return instance->land(ConvertTile(target));
 		}
 
 		bool Unit::Load(Api::Unit^ target, bool shiftQueueCommand)
@@ -938,7 +938,7 @@ namespace BroodWar
 
 		bool Unit::PlaceCop(Api::TilePosition^ target)
 		{
-			return instance->placeCOP(ConvertTilePosition(target));
+			return instance->placeCOP(ConvertTile(target));
 		}
 
 		int Unit::GetHashCode()

@@ -9,14 +9,14 @@ namespace BroodWar
 {
 	namespace Api
 	{
-		Bullet^ ConvertBullet(BWAPI::Bullet bullet)
+		Bullet^ ConvertBullet(BWAPI::Bullet* bullet)
 		{
 			if(bullet == NULL)
 				return nullptr;
 			return gcnew Bullet(bullet);
 		}
 
-		Bullet::Bullet(BWAPI::Bullet type)
+		Bullet::Bullet(BWAPI::Bullet* type)
 		{
 			instance = type;
 		}

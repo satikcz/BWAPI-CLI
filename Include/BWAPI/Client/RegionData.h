@@ -10,7 +10,7 @@ namespace BWAPI
     int   center_y;
     int   priority;
 
-    // region boundary
+    // region boundry
     int   leftMost;
     int   rightMost;
     int   topMost;
@@ -19,7 +19,7 @@ namespace BWAPI
     int   neighborCount;
     int   neighbors[256];
 
-    bool  isAccessible;
+    bool  isWalkable;
     bool  isHigherGround;
   };
 };

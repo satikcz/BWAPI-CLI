@@ -1,4 +1,5 @@
 #pragma once
+#include <windows.h>
 #include "GameData.h"
 #include "GameImpl.h"
 #include "ForceImpl.h"
@@ -6,30 +7,28 @@
 #include "UnitImpl.h"
 #include "GameTable.h"
 
-#include <Windows.h>
-
 
 namespace BWAPI
 {
   class Client
   {
-  public:
+    public:
     Client();
     ~Client();
-
-    bool isConnected() const;
+    GameData* data;
+    bool isConnected();
     bool connect();
     void disconnect();
     void update();
 
-    GameData* data = nullptr;
   private:
-    HANDLE      pipeObjectHandle;
-    HANDLE      mapFileHandle;
-    HANDLE      gameTableFileHandle;
-    GameTable*  gameTable = nullptr;
+    HANDLE pipeObjectHandle;
+    HANDLE mapFileHandle;
+    HANDLE gameTableFileHandle;
+    GameTable* gameTable;
     
-    bool connected = false;
+    bool connected;
+    bool showedErrorBox;
   };
   extern Client BWAPIClient;
 }

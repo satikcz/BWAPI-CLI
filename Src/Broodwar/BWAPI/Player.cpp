@@ -14,21 +14,21 @@ namespace BroodWar
 {
 	namespace Api
 	{
-		Player^ ConvertPlayer(BWAPI::Player player)
+		Player^ ConvertPlayer(BWAPI::Player* player)
 		{
 			if(player == NULL)
 				return nullptr;
 			return gcnew Player(player);
 		}
 
-		BWAPI::Player ConvertPlayer(Player^ player)
+		BWAPI::Player* ConvertPlayer(Player^ player)
 		{
 			if(player == nullptr)
 				return NULL;
 			return player->instance;
 		}
 
-		Player::Player(BWAPI::Player player)
+		Player::Player(BWAPI::Player* player)
 		{
 			instance = player;
 		}
@@ -55,7 +55,7 @@ namespace BroodWar
 
 		HashSet<Api::Unit^>^ Player::Units::get()
 		{
-			return ToHashSet<BWAPI::Unit, Unit^>(instance->getUnits(), &ConvertUnit);
+			return ToHashSet<BWAPI::Unit*, Unit^>(instance->getUnits(), &ConvertUnit);
 		}
 
 		Api::Race^ Player::Race::get()
@@ -85,7 +85,7 @@ namespace BroodWar
 
 		Api::TilePosition^ Player::StartLocation::get()
 		{
-			return ConvertTilePosition(instance->getStartLocation());
+			return ConvertTile(instance->getStartLocation());
 		}
 
 		bool Player::IsVictorious::get()
@@ -153,22 +153,22 @@ namespace BroodWar
 			return instance->spentGas();
 		}
 
-        int Player::SupplyTotal::get()
+		int Player::SupplyTotal()
 		{
 			return instance->supplyTotal();
 		}
 
-		int Player::GetSupplyTotal(Api::Race^ race)
+		int Player::SupplyTotal(Api::Race^ race)
 		{
 			return instance->supplyTotal(ConvertRace(race));
 		}
 
-		int Player::SupplyUsed::get()
+		int Player::SupplyUsed()
 		{
 			return instance->supplyUsed();
 		}
 
-		int Player::GetSupplyUsed(Api::Race^ race)
+		int Player::SupplyUsed(Api::Race^ race)
 		{
 			return instance->supplyUsed(ConvertRace(race));
 		}
@@ -243,6 +243,16 @@ namespace BroodWar
 			return instance->topSpeed(EnumMapping::UnitType->Native(unit));
 		}
 
+		int Player::GroundWeaponMaxRange(Api::Enum::UnitType unit)
+		{
+			return instance->groundWeaponMaxRange(EnumMapping::UnitType->Native(unit));
+		}
+
+		int Player::AirWeaponMaxRange(Api::Enum::UnitType unit)
+		{
+			return instance->airWeaponMaxRange(EnumMapping::UnitType->Native(unit));
+		}
+
 		int Player::WeaponMaxRange(Api::Weapon^ weapon)
 		{
 			return instance->weaponMaxRange(ConvertWeapon(weapon));
@@ -253,9 +263,9 @@ namespace BroodWar
 			return instance->sightRange(EnumMapping::UnitType->Native(unit));
 		}
 
-		int Player::WeaponDamageCooldown(Api::Enum::UnitType unit)
+		int Player::GroundWeaponDamageCooldown(Api::Enum::UnitType unit)
 		{
-			return instance->weaponDamageCooldown(EnumMapping::UnitType->Native(unit));
+			return instance->groundWeaponDamageCooldown(EnumMapping::UnitType->Native(unit));
 		}
 
 		int Player::Armor(Api::Enum::UnitType unit)

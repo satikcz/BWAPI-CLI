@@ -15,8 +15,14 @@
     <Filter Include="Header files\BWAPI\Enum">
       <UniqueIdentifier>{88b638e3-3074-4d6a-8ffd-2ac5ea78c83a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header files\BWTA">
+      <UniqueIdentifier>{a1bedd0c-e8d3-4599-b8cb-eee1aad78bc0}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source code files\BWAPI">
       <UniqueIdentifier>{7dc52671-da05-48fe-9493-06209c60b7d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source code files\BWTA">
+      <UniqueIdentifier>{fc542a18-b8dc-43c6-8f1d-d323fc481659}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header files\BWAPI\Client">
       <UniqueIdentifier>{696579d9-1497-416d-bf92-fb9a219506c3}</UniqueIdentifier>
@@ -36,6 +42,9 @@
       <Filter>Source code files</Filter>
     </ClCompile>
     <ClCompile Include="BWAPI\Position.cpp">
+      <Filter>Source code files\BWAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="BWAPI\TilePosition.cpp">
       <Filter>Source code files\BWAPI</Filter>
     </ClCompile>
     <ClCompile Include="BWAPI\Region.cpp">
@@ -77,6 +86,21 @@
     <ClCompile Include="AiBase.cpp">
       <Filter>Source code files</Filter>
     </ClCompile>
+    <ClCompile Include="BWTA\BaseLocation.cpp">
+      <Filter>Source code files\BWTA</Filter>
+    </ClCompile>
+    <ClCompile Include="BWTA\Chokepoint.cpp">
+      <Filter>Source code files\BWTA</Filter>
+    </ClCompile>
+    <ClCompile Include="BWTA\Polygon.cpp">
+      <Filter>Source code files\BWTA</Filter>
+    </ClCompile>
+    <ClCompile Include="BWTA\Region.cpp">
+      <Filter>Source code files\BWTA</Filter>
+    </ClCompile>
+    <ClCompile Include="BWTA\TerrainAnalyzer.cpp">
+      <Filter>Source code files\BWTA</Filter>
+    </ClCompile>
     <ClCompile Include="BWAPI\Client\Command.cpp">
       <Filter>Source code files\BWAPI\Client</Filter>
     </ClCompile>
@@ -94,12 +118,6 @@
     </ClCompile>
     <ClCompile Include="TournamentBase.cpp">
       <Filter>Source code files</Filter>
-    </ClCompile>
-    <ClCompile Include="BWAPI\TilePosition.cpp">
-      <Filter>Source code files\BWAPI</Filter>
-    </ClCompile>
-    <ClCompile Include="BWAPI\WalkPosition.cpp">
-      <Filter>Source code files\BWAPI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -134,6 +152,9 @@
       <Filter>Header files\BWAPI</Filter>
     </ClInclude>
     <ClInclude Include="BWAPI\Region.h">
+      <Filter>Header files\BWAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="BWAPI\TilePosition.h">
       <Filter>Header files\BWAPI</Filter>
     </ClInclude>
     <ClInclude Include="BWAPI\Event.h">
@@ -214,6 +235,24 @@
     <ClInclude Include="AiBase.h">
       <Filter>Header files</Filter>
     </ClInclude>
+    <ClInclude Include="BWTA\BaseLocation.h">
+      <Filter>Header files\BWTA</Filter>
+    </ClInclude>
+    <ClInclude Include="BWTA\Chokepoint.h">
+      <Filter>Header files\BWTA</Filter>
+    </ClInclude>
+    <ClInclude Include="BWTA\Polygon.h">
+      <Filter>Header files\BWTA</Filter>
+    </ClInclude>
+    <ClInclude Include="BWTA\RectangleArray.h">
+      <Filter>Header files\BWTA</Filter>
+    </ClInclude>
+    <ClInclude Include="BWTA\Region.h">
+      <Filter>Header files\BWTA</Filter>
+    </ClInclude>
+    <ClInclude Include="BWTA\TerrainAnalyzer.h">
+      <Filter>Header files\BWTA</Filter>
+    </ClInclude>
     <ClInclude Include="BWAPI\Enum\TournamentAction.h">
       <Filter>Header files\BWAPI\Enum</Filter>
     </ClInclude>
@@ -242,12 +281,6 @@
       <Filter>Header files</Filter>
     </ClInclude>
     <ClInclude Include="EnumClassMap.h">
-      <Filter>Header files</Filter>
-    </ClInclude>
-    <ClInclude Include="BWAPI\TilePosition.h">
-      <Filter>Header files\BWAPI</Filter>
-    </ClInclude>
-    <ClInclude Include="BWAPI\WalkPosition.h">
       <Filter>Header files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -28,7 +28,6 @@ namespace BWAPI
   struct GameData
   {
     //revision and debug will stay at the top of struct so they don't move in memory from revision to revision.
-    int client_version;
     int revision;
     bool isDebug;
 
@@ -67,7 +66,6 @@ namespace BWAPI
     bool hasLatCom;
     bool hasGUI;
     int replayFrameCount;
-    unsigned randomSeed;
     int frameCount;
     int elapsedTime;
     int countdownTimer;
@@ -146,7 +144,7 @@ namespace BWAPI
 
     //strings (used in shapes and commands)
     int stringCount;
-    char strings[MAX_STRINGS][1024];
+    char strings[MAX_STRINGS][256];
 
     //shapes, commands, unitCommands, from client to server
     int shapeCount;
@@ -158,7 +156,6 @@ namespace BWAPI
     int unitCommandCount;
     BWAPIC::UnitCommand unitCommands[MAX_UNIT_COMMANDS];
 
-    int unitSearchSize;
     unitFinder xUnitSearch[1700*2];
     unitFinder yUnitSearch[1700*2];
   };

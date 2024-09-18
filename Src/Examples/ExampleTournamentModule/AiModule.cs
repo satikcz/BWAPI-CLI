@@ -41,7 +41,7 @@ namespace ExampleTournamentModule
 			Game.SetLocalSpeed(0);
 			Game.SetFrameSkip(64);
 
-			Events.Add(Position.Rescale(Events.Self.StartLocation + new TilePosition(64, 48)), 100, 100, null);
+			Events.Add(new Position(Events.Self.StartLocation + new TilePosition(64, 48)), 100, 100, null);
 		}
 
 		public override void OnEnd(bool isWinner)
@@ -79,14 +79,14 @@ namespace ExampleTournamentModule
 			else
 				color = 6;
 
-            //Game.SetTextSize(3);
+			Game.SetTextSize(3);
 			Game.DrawTextScreen(4, 4, "\x13\x07{0}", Events.BotName);
-            //Game.SetTextSize(0);
+			Game.SetTextSize(0);
 
 			Game.DrawTextScreen(2, 2, "\x04{0}\n\x07APM: {1}{2}\n\x07Highest APM: {3}{4}", Game.MapName, color, thisApm, hcolor, _maxApm);
 			// draw supplies
 			if (Events.IsJoiner)
-				Game.DrawTextScreen(560, 40, "\x07Supply: {0}/{1}", Game.Self.SupplyUsed / 2, Game.Self.SupplyTotal / 2);
+				Game.DrawTextScreen(560, 40, "\x07Supply: {0}/{1}", Game.Self.SupplyUsed() / 2, Game.Self.SupplyTotal() / 2);
 
 			foreach(var unit in Events.Self.Units.Where(u => u.Exists))
 			{
@@ -162,7 +162,7 @@ namespace ExampleTournamentModule
 					|| o.HasFlag(OrderType.PickupBunker)
 					|| o.HasFlag(OrderType.PickupTransport)
 					|| o.HasFlag(OrderType.PlaceAddon)
-					|| o.HasFlag(OrderType.SelfDestructing)
+					|| o.HasFlag(OrderType.SelfDestrucing)
 					|| o.HasFlag(OrderType.Unload)
 					|| o.HasFlag(OrderType.ZergBirth))
 					Events.Add(unit.Position, 50, 40, null);

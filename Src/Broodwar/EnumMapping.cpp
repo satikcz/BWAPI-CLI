@@ -15,6 +15,7 @@ namespace BroodWar
 		RaceType->Add(&BWAPI::Races::Terran,  BroodWar::Api::Enum::RaceType::Terran);
 		RaceType->Add(&BWAPI::Races::Protoss, BroodWar::Api::Enum::RaceType::Protoss);
 		RaceType->Add(&BWAPI::Races::Random,  BroodWar::Api::Enum::RaceType::Random);
+		RaceType->Add(&BWAPI::Races::Other,   BroodWar::Api::Enum::RaceType::Other);
 		RaceType->Add(&BWAPI::Races::None,    BroodWar::Api::Enum::RaceType::None);
 		RaceType->Add(&BWAPI::Races::Unknown, BroodWar::Api::Enum::RaceType::Unknown);
 		#pragma endregion
@@ -492,7 +493,7 @@ namespace BroodWar
 		#pragma endregion
 
 		#pragma region OrderType
-		OrderType = gcnew EnumClassMap<BWAPI::Order, BroodWar::Api::Enum::OrderType>(156);
+		OrderType = gcnew EnumClassMap<BWAPI::Order, BroodWar::Api::Enum::OrderType>(157);
 		OrderType->Add(&BWAPI::Orders::Die,                    BroodWar::Api::Enum::OrderType::Die);
 		OrderType->Add(&BWAPI::Orders::Stop,                   BroodWar::Api::Enum::OrderType::Stop);
 		OrderType->Add(&BWAPI::Orders::Guard,                  BroodWar::Api::Enum::OrderType::Guard);
@@ -510,10 +511,11 @@ namespace BroodWar
 		OrderType->Add(&BWAPI::Orders::TowerGuard,             BroodWar::Api::Enum::OrderType::TowerGuard);
 		OrderType->Add(&BWAPI::Orders::VultureMine,            BroodWar::Api::Enum::OrderType::VultureMine);
 		OrderType->Add(&BWAPI::Orders::Nothing,                BroodWar::Api::Enum::OrderType::Nothing);
+		OrderType->Add(&BWAPI::Orders::Nothing3,               BroodWar::Api::Enum::OrderType::Nothing3);
 		OrderType->Add(&BWAPI::Orders::CastInfestation,        BroodWar::Api::Enum::OrderType::CastInfestation);
 		OrderType->Add(&BWAPI::Orders::InfestingCommandCenter, BroodWar::Api::Enum::OrderType::InfestingCommandCenter);
 		OrderType->Add(&BWAPI::Orders::PlaceBuilding,          BroodWar::Api::Enum::OrderType::PlaceBuilding);
-    OrderType->Add(&BWAPI::Orders::CreateProtossBuilding,  BroodWar::Api::Enum::OrderType::CreateProtossBuilding);
+		OrderType->Add(&BWAPI::Orders::BuildProtoss2,          BroodWar::Api::Enum::OrderType::BuildProtoss2);
 		OrderType->Add(&BWAPI::Orders::ConstructingBuilding,   BroodWar::Api::Enum::OrderType::ConstructingBuilding);
 		OrderType->Add(&BWAPI::Orders::Repair,                 BroodWar::Api::Enum::OrderType::Repair);
 		OrderType->Add(&BWAPI::Orders::PlaceAddon,             BroodWar::Api::Enum::OrderType::PlaceAddon);
@@ -573,7 +575,7 @@ namespace BroodWar
 		OrderType->Add(&BWAPI::Orders::StoppingCreepGrowth,    BroodWar::Api::Enum::OrderType::StoppingCreepGrowth);
 		OrderType->Add(&BWAPI::Orders::GuardianAspect,         BroodWar::Api::Enum::OrderType::GuardianAspect);
 		OrderType->Add(&BWAPI::Orders::ArchonWarp,             BroodWar::Api::Enum::OrderType::ArchonWarp);
-		OrderType->Add(&BWAPI::Orders::CompletingArchonSummon, BroodWar::Api::Enum::OrderType::CompletingArchonSummon);
+		OrderType->Add(&BWAPI::Orders::CompletingArchonsummon, BroodWar::Api::Enum::OrderType::CompletingArchonsummon);
 		OrderType->Add(&BWAPI::Orders::HoldPosition,           BroodWar::Api::Enum::OrderType::HoldPosition);
 		OrderType->Add(&BWAPI::Orders::Cloak,                  BroodWar::Api::Enum::OrderType::Cloak);
 		OrderType->Add(&BWAPI::Orders::Decloak,                BroodWar::Api::Enum::OrderType::Decloak);
@@ -599,7 +601,7 @@ namespace BroodWar
 		OrderType->Add(&BWAPI::Orders::PlaceMine,              BroodWar::Api::Enum::OrderType::PlaceMine);
 		OrderType->Add(&BWAPI::Orders::RightClickAction,       BroodWar::Api::Enum::OrderType::RightClickAction);
 		OrderType->Add(&BWAPI::Orders::CastRecall,             BroodWar::Api::Enum::OrderType::CastRecall);
-		OrderType->Add(&BWAPI::Orders::Teleport,               BroodWar::Api::Enum::OrderType::Teleport);
+		OrderType->Add(&BWAPI::Orders::TeleporttoLocation,     BroodWar::Api::Enum::OrderType::TeleporttoLocation);
 		OrderType->Add(&BWAPI::Orders::CastScannerSweep,       BroodWar::Api::Enum::OrderType::CastScannerSweep);
 		OrderType->Add(&BWAPI::Orders::Scanner,                BroodWar::Api::Enum::OrderType::Scanner);
 		OrderType->Add(&BWAPI::Orders::CastDefensiveMatrix,    BroodWar::Api::Enum::OrderType::CastDefensiveMatrix);
@@ -624,20 +626,20 @@ namespace BroodWar
 		OrderType->Add(&BWAPI::Orders::RescuePassive,          BroodWar::Api::Enum::OrderType::RescuePassive);
 		OrderType->Add(&BWAPI::Orders::Neutral,                BroodWar::Api::Enum::OrderType::Neutral);
 		OrderType->Add(&BWAPI::Orders::ComputerReturn,         BroodWar::Api::Enum::OrderType::ComputerReturn);
-		OrderType->Add(&BWAPI::Orders::SelfDestructing,        BroodWar::Api::Enum::OrderType::SelfDestructing);
+		OrderType->Add(&BWAPI::Orders::SelfDestrucing,         BroodWar::Api::Enum::OrderType::SelfDestrucing);
 		OrderType->Add(&BWAPI::Orders::Critter,                BroodWar::Api::Enum::OrderType::Critter);
 		OrderType->Add(&BWAPI::Orders::HiddenGun,              BroodWar::Api::Enum::OrderType::HiddenGun);
 		OrderType->Add(&BWAPI::Orders::OpenDoor,               BroodWar::Api::Enum::OrderType::OpenDoor);
 		OrderType->Add(&BWAPI::Orders::CloseDoor,              BroodWar::Api::Enum::OrderType::CloseDoor);
 		OrderType->Add(&BWAPI::Orders::HideTrap,               BroodWar::Api::Enum::OrderType::HideTrap);
 		OrderType->Add(&BWAPI::Orders::RevealTrap,             BroodWar::Api::Enum::OrderType::RevealTrap);
-		OrderType->Add(&BWAPI::Orders::EnableDoodad,           BroodWar::Api::Enum::OrderType::EnableDoodad);
-		OrderType->Add(&BWAPI::Orders::DisableDoodad,          BroodWar::Api::Enum::OrderType::DisableDoodad);
-		OrderType->Add(&BWAPI::Orders::WarpIn,                 BroodWar::Api::Enum::OrderType::WarpIn);
+		OrderType->Add(&BWAPI::Orders::Enabledoodad,           BroodWar::Api::Enum::OrderType::Enabledoodad);
+		OrderType->Add(&BWAPI::Orders::Disabledoodad,          BroodWar::Api::Enum::OrderType::Disabledoodad);
+		OrderType->Add(&BWAPI::Orders::Warpin,                 BroodWar::Api::Enum::OrderType::Warpin);
 		OrderType->Add(&BWAPI::Orders::Medic,                  BroodWar::Api::Enum::OrderType::Medic);
-		OrderType->Add(&BWAPI::Orders::MedicHeal,              BroodWar::Api::Enum::OrderType::MedicHeal);
+		OrderType->Add(&BWAPI::Orders::MedicHeal1,             BroodWar::Api::Enum::OrderType::MedicHeal1);
 		OrderType->Add(&BWAPI::Orders::HealMove,               BroodWar::Api::Enum::OrderType::HealMove);
-		OrderType->Add(&BWAPI::Orders::MedicHealToIdle,        BroodWar::Api::Enum::OrderType::MedicHealToIdle);
+		OrderType->Add(&BWAPI::Orders::MedicHeal2,             BroodWar::Api::Enum::OrderType::MedicHeal2);
 		OrderType->Add(&BWAPI::Orders::CastRestoration,        BroodWar::Api::Enum::OrderType::CastRestoration);
 		OrderType->Add(&BWAPI::Orders::CastDisruptionWeb,      BroodWar::Api::Enum::OrderType::CastDisruptionWeb);
 		OrderType->Add(&BWAPI::Orders::CastMindControl,        BroodWar::Api::Enum::OrderType::CastMindControl);
@@ -712,7 +714,7 @@ namespace BroodWar
 		#pragma endregion
 
 		#pragma region GameType
-		GameType = gcnew EnumClassMap<BWAPI::GameType, BroodWar::Api::Enum::GameType>(15);
+		GameType = gcnew EnumClassMap<BWAPI::GameType, BroodWar::Api::Enum::GameType>(16);
 		GameType->Add(&BWAPI::GameTypes::Melee,                 BroodWar::Api::Enum::GameType::Melee);
 		GameType->Add(&BWAPI::GameTypes::Free_For_All,          BroodWar::Api::Enum::GameType::FreeForAll);
 		GameType->Add(&BWAPI::GameTypes::One_on_One,            BroodWar::Api::Enum::GameType::OneOnOne);
@@ -726,6 +728,7 @@ namespace BroodWar
 		GameType->Add(&BWAPI::GameTypes::Team_Free_For_All,     BroodWar::Api::Enum::GameType::TeamFreeForAll);
 		GameType->Add(&BWAPI::GameTypes::Team_Capture_The_Flag, BroodWar::Api::Enum::GameType::TeamCaptureTheFlag);
 		GameType->Add(&BWAPI::GameTypes::Top_vs_Bottom,         BroodWar::Api::Enum::GameType::TopVsBottom);
+		GameType->Add(&BWAPI::GameTypes::Pro_Gamer_League,      BroodWar::Api::Enum::GameType::ProGamerLeague);
 		GameType->Add(&BWAPI::GameTypes::None,                  BroodWar::Api::Enum::GameType::None);
 		GameType->Add(&BWAPI::GameTypes::Unknown,               BroodWar::Api::Enum::GameType::Unknown);
 		#pragma endregion

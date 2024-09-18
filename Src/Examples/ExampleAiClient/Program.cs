@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using BroodWar.Api;
 using BroodWar.Api.Client;
 using BroodWar.Api.Enum;
+using BroodWar.Terrain;
+using BwRegion = BroodWar.Terrain.Region;
 
 namespace ExampleAiClient
 {
@@ -16,9 +18,9 @@ namespace ExampleAiClient
 	{
 		private static bool _showBullets;
 		private static bool _showVisibilityData;
-        //private static bool _analyzed;
-        //private static BwRegion _home;
-        //private static BackgroundWorker _terrainAnalyzer;
+		private static bool _analyzed;
+		private static BwRegion _home;
+		private static BackgroundWorker _terrainAnalyzer;
 
 		static void Main()
 		{
@@ -45,13 +47,13 @@ namespace ExampleAiClient
 				Game.Write("The map is {0}, a {1} player map", Game.MapName, Game.StartLocations.Count);
 				// Enable some cheat flags
 				Game.EnableFlag(Flag.Max);
-                //TerrainAnalyzer.ReadMap();
-                //_analyzed = false;
-                //_terrainAnalyzer = new BackgroundWorker();
-                //_terrainAnalyzer.DoWork += DoAnalyze;
-                //_terrainAnalyzer.RunWorkerCompleted += AnalysisComplete;
-                //Game.Write("Analyzing map... this may take a minute");
-                //_terrainAnalyzer.RunWorkerAsync();
+				TerrainAnalyzer.ReadMap();
+				_analyzed = false;
+				_terrainAnalyzer = new BackgroundWorker();
+				_terrainAnalyzer.DoWork += DoAnalyze;
+				_terrainAnalyzer.RunWorkerCompleted += AnalysisComplete;
+				Game.Write("Analyzing map... this may take a minute");
+				_terrainAnalyzer.RunWorkerAsync();
 
 				if (Game.IsReplay)
 				{
@@ -205,17 +207,17 @@ namespace ExampleAiClient
 					if (!Game.IsReplay)
 					{
 						DrawStats();
-                        //if (_analyzed && Game.FrameCount % 30 == 0)
-                        //{
-                        //    //order one of our workers to guard our chokepoint.
-                        //    var worker = Game.Self.Units.First(u => u.UnitType.IsWorker);
+						if (_analyzed && Game.FrameCount % 30 == 0)
+						{
+							//order one of our workers to guard our chokepoint.
+							var worker = Game.Self.Units.First(u => u.UnitType.IsWorker);
 
-                        //    var choke = _home.Chokepoints.OrderBy(c => c.Width).FirstOrDefault();
-                        //    if (choke != null)
-                        //        worker.RightClick(choke.Center, false);
-                        //}
-                        //if (_analyzed)
-                        //    DrawTerrainData();
+							var choke = _home.Chokepoints.OrderBy(c => c.Width).FirstOrDefault();
+							if (choke != null)
+								worker.RightClick(choke.Center, false);
+						}
+						if (_analyzed)
+							DrawTerrainData();
 					}
 
 					Client.Update();
@@ -278,7 +280,7 @@ namespace ExampleAiClient
 			}
 		}
 
-/*		private static void DrawTerrainData()
+		private static void DrawTerrainData()
 		{
 			//we will iterate through all the base locations, and draw their outlines
 			foreach (var baseLocation in TerrainAnalyzer.BaseLocations)
@@ -319,7 +321,7 @@ namespace ExampleAiClient
 				var p2 = chokepoint.Sides.Item2;
 				Game.DrawLineMap(p1.X, p1.Y, p2.X, p2.Y, Color.Red);
 			}
-		}*/
+		}
 
 		private static void ShowPlayers()
 		{
@@ -341,7 +343,7 @@ namespace ExampleAiClient
 			}
 		}
 
-		/*private static void DoAnalyze(object sender, DoWorkEventArgs args)
+		private static void DoAnalyze(object sender, DoWorkEventArgs args)
 		{
 			TerrainAnalyzer.Analyze();
 		}
@@ -355,7 +357,7 @@ namespace ExampleAiClient
 
 			_analyzed = true;
 			Game.Write("Finished analyzing map.");
-		}*/
+		}
 
 		private static void Reconnect()
 		{

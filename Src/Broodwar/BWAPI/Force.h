@@ -2,7 +2,6 @@
 #pragma unmanaged
 
 #include <BWAPI\Force.h>
-#include <BWAPI\Forceset.h>
 
 #pragma managed
 
@@ -20,10 +19,10 @@ namespace BroodWar
 		public ref class Force sealed : public IIdentifiedObject
 		{
 		private:
-			BWAPI::Force instance;
+			BWAPI::Force* instance;
 
 		internal:
-			Force(BWAPI::Force force);
+			Force(BWAPI::Force *force);
 
 		public:
 			virtual property int Id { int get(); }
@@ -38,6 +37,6 @@ namespace BroodWar
 			static bool operator != (Api::Force^ first, Api::Force^ second);
 		};
 
-		Force^ ConvertForce(BWAPI::Force force);
+		Force^ ConvertForce(BWAPI::Force* force);
 	}
 }

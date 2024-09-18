@@ -14,8 +14,8 @@ namespace BroodWar
 
 		BWAPI::UnitCommand ConvertUnitCommand(UnitCommand^ command)
 		{
-			/*if(command == nullptr)
-				return BWAPI::UnitCommand();*/
+			if(command == nullptr)
+				return BWAPI::UnitCommand();
 			return BWAPI::UnitCommand(*(command->instance));
 		}
 
@@ -359,6 +359,16 @@ namespace BroodWar
 		bool UnitCommand::operator != (UnitCommand^ first, UnitCommand^ second)
 		{
 			return *(first->instance) != *(second->instance);
+		}
+
+		bool UnitCommand::operator < (UnitCommand^ first, UnitCommand^ second)
+		{
+			return *(first->instance) < *(second->instance);
+		}
+
+		bool UnitCommand::operator > (UnitCommand^ first, UnitCommand^ second)
+		{
+			return *(first->instance) > *(second->instance);
 		}
 	}
 }

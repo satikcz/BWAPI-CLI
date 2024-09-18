@@ -92,14 +92,24 @@ namespace BroodWar
 			return ConvertRace(instance->getRace());
 		}
 
-        Api::Price^ Tech::Price::get()
-        {
-            return gcnew Api::Price(instance->mineralPrice(), instance->gasPrice(), instance->researchTime(), 0);
-        }
-
-		int Tech::EnergyCost::get()
+		int Tech::MineralPrice::get()
 		{
-			return instance->energyCost();
+			return instance->mineralPrice();
+		}
+
+		int Tech::GasPrice::get()
+		{
+			return instance->gasPrice();
+		}
+
+		int Tech::ResearchTime::get()
+		{
+			return instance->researchTime();
+		}
+
+		int Tech::EnergyUsed::get()
+		{
+			return instance->energyUsed();
 		}
 
 		Api::UnitType^ Tech::WhatResearches::get()

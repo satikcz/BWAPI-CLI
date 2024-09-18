@@ -8,7 +8,6 @@
 #pragma managed
 
 #include "Race.h"
-#include "Price.h"
 #include "IIdentifiedObject.h"
 #include "Enum\OrderType.h"
 #include "Enum\TechType.h"
@@ -49,15 +48,25 @@ namespace BroodWar
 			/// </summary>
 			property Api::Race^ Race { Api::Race^ get(); }
 
-            /// <summary>
-            /// Tech price
-            /// </summary>
-            property Api::Price^ Price { Api::Price^ get(); }
-
+			/// <summary>
+			/// Returns the mineral cost of the tech type
+			/// </summary>
+			property int MineralPrice { int get(); }
+			
+			/// <summary>
+			/// Returns the vespene gas price of the tech type
+			/// </summary>
+			property int GasPrice { int get(); }
+			
+			/// <summary>
+			/// Returns the number of frames needed to research the tech type
+			/// </summary>
+			property int ResearchTime { int get(); }
+			
 			/// <summary>
 			/// Returns the amount of energy used each time this tech type is used
 			/// </summary>
-			property int EnergyCost { int get(); }
+			property int EnergyUsed { int get(); }
 			
 			/// <summary>
 			/// Returns the type of unit that researches this tech type. If this tech type is available for free (does not need to be researched),
@@ -95,11 +104,6 @@ namespace BroodWar
 			virtual int GetHashCode() override;
 			virtual bool Equals(Object^ o) override;
 			bool Equals(Tech^ other);
-
-      virtual String^ ToString() override
-      {
-        return Type.ToString();
-      }
 
 			static property List<Tech^>^ AllTechs { List<Tech^>^ get(); }
 

@@ -1,80 +1,44 @@
 #pragma once
-#include <BWAPI/Type.h>
-
+#include <string>
+#include <set>
+#include "Type.h"
 namespace BWAPI
 {
-  /// <summary>Namespace containing game types.</summary>
-  /// @see GameType
-  namespace GameTypes
-  {
-    /// <summary>Enumeration of game types.</summary>
-    /// @see GameType
-    namespace Enum
-    {
-      /// <summary>Enumeration of game types.</summary>
-      /// @see GameType
-      enum Enum
-      {
-        None = 0,
-        Custom,          // Warcraft III
-        Melee,
-        Free_For_All,
-        One_on_One,
-        Capture_The_Flag,
-        Greed,
-        Slaughter,
-        Sudden_Death,
-        Ladder,
-        Use_Map_Settings,
-        Team_Melee,
-        Team_Free_For_All,
-        Team_Capture_The_Flag,
-        Unknown_0x0E,
-        Top_vs_Bottom,
-        Iron_Man_Ladder,    // Warcraft II
-
-        Pro_Gamer_League = 32,  // Not valid
-        Unknown,
-        MAX
-      };
-    };
-  };
-  /// <summary>A class that represents game types in Broodwar.</summary> A game type is selected
-  /// when creating a game.
-  ///
-  /// @see GameTypes
-  /// @ingroup TypeClasses
-  class GameType : public Type<GameType, GameTypes::Enum::Unknown>
+  class GameType : public Type
   {
     public:
-      /// @copydoc Type::Type(int)
-      constexpr GameType(int id = GameTypes::Enum::None) : Type(id) {}
-  };
+      GameType();
+      GameType(int id);
 
-  /// @ingroup Types
+      /** Returns the name of the game type. For example GameTypes::Melee.getName() will return an
+       * std::string object containing "Melee". */
+      const std::string &getName() const;
+      const char *c_str() const;
+  };
   namespace GameTypes
   {
-    /// <summary>Retrieves the set of all the valid GameTypes.</summary>
-    ///
-    /// @returns Set of available GameTypes.
-    const GameType::set& allGameTypes();
-    
-    constexpr GameType Melee{Enum::Melee};
-    constexpr GameType Free_For_All{Enum::Free_For_All};
-    constexpr GameType One_on_One{Enum::One_on_One};
-    constexpr GameType Capture_The_Flag{Enum::Capture_The_Flag};
-    constexpr GameType Greed{Enum::Greed};
-    constexpr GameType Slaughter{Enum::Slaughter};
-    constexpr GameType Sudden_Death{Enum::Sudden_Death};
-    constexpr GameType Ladder{Enum::Ladder};
-    constexpr GameType Use_Map_Settings{Enum::Use_Map_Settings};
-    constexpr GameType Team_Melee{Enum::Team_Melee};
-    constexpr GameType Team_Free_For_All{Enum::Team_Free_For_All};
-    constexpr GameType Team_Capture_The_Flag{Enum::Team_Capture_The_Flag};
-    constexpr GameType Top_vs_Bottom{Enum::Top_vs_Bottom};
-    constexpr GameType None{Enum::None};
-    constexpr GameType Unknown{Enum::Unknown};
-  }
+    /** Given the name of a game type, this function will return the GameType. For example:
+     *  GameTypes::getGameType("Free For All") will return GameTypes::Free_For_All. */
+    GameType getGameType(std::string name);
 
-  static_assert(sizeof(GameType) == sizeof(int), "Expected type to resolve to primitive size.");
+    /** Returns the set of all the GameTypes. */
+    const std::set<GameType>& allGameTypes();
+    void init();
+    extern const GameType Melee;
+    extern const GameType Free_For_All;
+    extern const GameType One_on_One;
+    extern const GameType Capture_The_Flag;
+    extern const GameType Greed;
+    extern const GameType Slaughter;
+    extern const GameType Sudden_Death;
+    extern const GameType Ladder;
+    extern const GameType Use_Map_Settings;
+    extern const GameType Team_Melee;
+    extern const GameType Team_Free_For_All;
+    extern const GameType Team_Capture_The_Flag;
+    extern const GameType Top_vs_Bottom;
+    extern const GameType Pro_Gamer_League;
+    extern const GameType None;
+    extern const GameType Unknown;
+  }
 }

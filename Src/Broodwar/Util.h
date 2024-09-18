@@ -27,45 +27,15 @@ namespace BroodWar
 		return gcnew Tuple<TOut1, TOut2>(converter1(p.first), converter2(p.second));
 	}
 	
-	//template <typename TIn, typename TOut>
-	//HashSet<TOut>^ ToHashSet(unordered_set<TIn> collection, TOut (*converter)(TIn))
-	//{
-	//	HashSet<TOut>^ result = gcnew HashSet<TOut>();
-	//	set<TIn>::iterator it;
-	//	for(it = collection.begin(); it != collection.end(); it++)
-	//		result->Add(converter(*it));
-	//	return result;
-	//}
-
-    template <typename TIn, typename TOut>
-    HashSet<TOut>^ ToHashSet(unordered_set<TIn, hash<void*>> collection, TOut(*converter)(TIn))
-    {
-        HashSet<TOut>^ result = gcnew HashSet<TOut>();
-        unordered_set<TIn, hash<void*>>::iterator it;
-        for (it = collection.begin(); it != collection.end(); it++)
-            result->Add(converter(*it));
-        return result;
-    }
-
-    //template <typename TIn, typename TOut>
-    //HashSet<TOut>^ ToHashSet(unordered_set<TIn, hash<int>> collection, TOut(*converter)(TIn))
-    //{
-    //    HashSet<TOut>^ result = gcnew HashSet<TOut>();
-    //    set<TIn, hash<int>>::iterator it;
-    //    for (it = collection.begin(); it != collection.end(); it++)
-    //        result->Add(converter(*it));
-    //    return result;
-    //}
-
-    template <typename TIn, typename TOut>
-    HashSet<TOut>^ ToHashSet(const BWAPI::SetContainer<TIn> collection, TOut(*converter)(TIn))
-    {
-        HashSet<TOut>^ result = gcnew HashSet<TOut>();
-        BWAPI::SetContainer<TIn>::iterator it;
-        for (it = collection.begin(); it != collection.end(); it++)
-            result->Add(converter(*it));
-        return result;
-    }
+	template <typename TIn, typename TOut>
+	HashSet<TOut>^ ToHashSet(set<TIn> collection, TOut (*converter)(TIn))
+	{
+		HashSet<TOut>^ result = gcnew HashSet<TOut>();
+		set<TIn>::iterator it;
+		for(it = collection.begin(); it != collection.end(); it++)
+			result->Add(converter(*it));
+		return result;
+	}
 
 	template <typename TIn, typename TOut>
 	List<TOut>^ ToList(vector<TIn> collection, TOut (*converter)(TIn))
@@ -77,31 +47,21 @@ namespace BroodWar
 		return rez;
 	}
 
-    template <typename TIn, typename TOut>
-    List<TOut>^ ToList(list<TIn> collection, TOut(*converter)(TIn))
-    {
-        List<TOut>^ rez = gcnew List<TOut>(collection.size());
-        list<TIn>::iterator it;
-        for (it = collection.begin(); it != collection.end(); it++)
-            rez->Add(converter(*it));
-        return rez;
-    }
-
 	template <typename TIn, typename TOut>
-	List<TOut>^ ToList(deque<TIn> collection, TOut (*converter)(TIn))
+	List<TOut>^ ToList(list<TIn> collection, TOut (*converter)(TIn))
 	{
 		List<TOut>^ rez = gcnew List<TOut>(collection.size());
-		deque<TIn>::iterator it;
+		list<TIn>::iterator it;
 		for(it = collection.begin(); it != collection.end(); it++)
 			rez->Add(converter(*it));
 		return rez;
 	}
 
 	template <typename TIn, typename TOut>
-	List<TOut>^ ToList(BWAPI::SetContainer<TIn> collection, TOut (*converter)(TIn))
+	List<TOut>^ ToList(set<TIn> collection, TOut (*converter)(TIn))
 	{
 		List<TOut>^ rez = gcnew List<TOut>(collection.size());
-		BWAPI::SetContainer<TIn>::iterator it;
+		set<TIn>::iterator it;
 		for(it = collection.begin(); it != collection.end(); it++)
 			rez->Add(converter(*it));
 		return rez;
@@ -117,20 +77,18 @@ namespace BroodWar
 		return rez;
 	}
 
-    BWAPI::Unitset ToUnitset(IEnumerable<Unit^>^ collection, BWAPI::Unit(*converter)(Unit^));
-
-    //template <typename TIn, typename TOut>
-	//set<TOut> ToSet(IEnumerable<TIn>^ collection, TOut (*converter)(TIn))
-	//{
-	//	set<TOut> result;
-	//	TOut outelement;
-	//	for each(TIn element in collection)
-	//	{
-	//		outelement = (TOut const)(converter(element));
-	//		result.insert(outelement);
-	//	}
-	//	return result;
-	//}
+	template <typename TIn, typename TOut>
+	set<TOut> ToSet(IEnumerable<TIn>^ collection, TOut (*converter)(TIn))
+	{
+		set<TOut> result;
+		TOut outelement;
+		for each(TIn element in collection)
+		{
+			outelement = (TOut const)(converter(element));
+			result.insert(outelement);
+		}
+		return result;
+	}
 
 	template <typename TIn, typename TOut>
 	vector<TOut> ToVector(ICollection<TIn>^ collection, TOut (*converter)(TIn))
@@ -157,15 +115,11 @@ namespace BroodWar
 
 		static void LogException(String^ module, Exception^ ex);
 
-        // Can't export because of templates breaking the #pragma make_public(BWAPI::Player/Position/Unit)
-        //static Api::Player^ ConvertPlayer(BWAPI::Player player);
-        static Api::Player^ ConvertPlayer(void *player);
+		static Api::Player^ ConvertPlayer(BWAPI::Player* player);
 
-        //static Api::Unit^ ConvertUnit(BWAPI::Unit unit);
-        static Api::Unit^ ConvertUnit(void *unit);
+		static Api::Unit^ ConvertUnit(BWAPI::Unit* unit);
 
-        //static Api::Position^ ConvertPosition(BWAPI::Position *position);
-        static Api::Position^ ConvertPosition(void *position);
+		static Api::Position^ ConvertPosition(BWAPI::Position position);
 
 		static void LoadGameInstance(BWAPI::Game* game);
 	};

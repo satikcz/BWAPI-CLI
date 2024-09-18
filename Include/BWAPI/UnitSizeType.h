@@ -1,64 +1,33 @@
 #pragma once
-#include <BWAPI/Type.h>
-
+#include <string>
+#include <set>
+#include "Type.h"
 namespace BWAPI
 {
-  /// <summary>Namespace containing unit size types.</summary>
-  ///
-  /// @see UnitSizeType
-  ///
-  /// [View on Starcraft Campendium (Official Website)](http://classic.battle.net/scc/gs/damage.shtml)<br>
-  namespace UnitSizeTypes
-  {
-    /// <summary>Enumeration of unit size types.</summary>
-    /// @see UnitSizeType
-    namespace Enum
-    {
-      /// <summary>Enumeration of unit size types.</summary>
-      /// @see UnitSizeType
-      enum Enum
-      {
-        Independent = 0,
-        Small,
-        Medium,
-        Large,
-        None,
-        Unknown,
-        MAX
-      };
-    };
-  };
-
-  /// <summary>Size types are used by unit types in Broodwar to determine how much damage will be
-  /// applied.</summary> This corresponds with DamageType for several different damage reduction
-  /// applications.
-  ///
-  /// @see DamageType, UnitType, UnitSizeTypes
-  ///
-  /// [View on Starcraft Campendium (Official Website)](http://classic.battle.net/scc/gs/damage.shtml)<br>
-  /// @ingroup TypeClasses
-  class UnitSizeType : public Type<UnitSizeType, UnitSizeTypes::Enum::Unknown>
+  class UnitSizeType : public Type
   {
   public:
-    /// @copydoc Type::Type(int)
-    constexpr UnitSizeType(int id = UnitSizeTypes::Enum::None) : Type(id) {}
+    UnitSizeType();
+    UnitSizeType(int id);
+    /** Returns the string corresponding to the UnitSizeType object. For example,
+     * UnitSizeTypes::Medium.getName() returns std::string("Medium")*/
+    const std::string &getName() const;
+    const char *c_str() const;
   };
-
-  /// @ingroup Types
   namespace UnitSizeTypes
   {
-    /// <summary>Retrieves the set of all valid UnitSizeTypes.</summary>
-    ///
-    /// @returns Set of all UnitSizeTypes.
-    const UnitSizeType::set& allUnitSizeTypes();
-    
-    constexpr UnitSizeType Independent{Enum::Independent};
-    constexpr UnitSizeType Small{Enum::Small};
-    constexpr UnitSizeType Medium{Enum::Medium};
-    constexpr UnitSizeType Large{Enum::Large};
-    constexpr UnitSizeType None{Enum::None};
-    constexpr UnitSizeType Unknown{Enum::Unknown};
-  }
+    /** Given a string, this function returns the size type it refers to. For example,
+     * UnitSizeTypes::getUnitSizeType("Small") returns UnitSizeTypes::Small. */
+    UnitSizeType getUnitSizeType(std::string name);
 
-  static_assert(sizeof(UnitSizeType) == sizeof(int), "Expected type to resolve to primitive size.");
+    /** Returns the set of all the sizes, which are listed below: */
+    const std::set<UnitSizeType>& allUnitSizeTypes();
+    void init();
+    extern const UnitSizeType Independent;
+    extern const UnitSizeType Small;
+    extern const UnitSizeType Medium;
+    extern const UnitSizeType Large;
+    extern const UnitSizeType None;
+    extern const UnitSizeType Unknown;
+  }
 }

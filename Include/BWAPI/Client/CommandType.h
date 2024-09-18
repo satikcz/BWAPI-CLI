@@ -15,6 +15,8 @@ namespace BWAPIC
       EnableFlag,
       Printf,
       SendText,
+      ChangeRace,
+      StartGame,
       PauseGame,
       ResumeGame,
       LeaveGame,
@@ -27,6 +29,7 @@ namespace BWAPIC
       SetAllies,
       SetVision,
       SetCommandOptimizerLevel,
+      SetReplayVision,
       SetRevealAll
     };
   }

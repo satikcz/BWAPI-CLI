@@ -21,6 +21,7 @@ namespace BroodWar
 				TeamFreeForAll,
 				TeamCaptureTheFlag,
 				TopVsBottom,
+				ProGamerLeague,
 				None,
 				Unknown,
 			};

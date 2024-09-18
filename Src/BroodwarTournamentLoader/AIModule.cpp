@@ -44,12 +44,12 @@ void AIModule::onSendText(std::string text)
 	AIManaged::SendText(gcnew System::String(text.c_str()));
 }
 
-void AIModule::onReceiveText(BWAPI::Player player, std::string text)
+void AIModule::onReceiveText(BWAPI::Player* player, std::string text)
 {
 	AIManaged::ReceiveText(player, gcnew System::String(text.c_str()));
 }
 
-void AIModule::onPlayerLeft(BWAPI::Player player)
+void AIModule::onPlayerLeft(BWAPI::Player* player)
 {
 	AIManaged::PlayerLeft(player);
 }
@@ -59,42 +59,42 @@ void AIModule::onNukeDetect(BWAPI::Position target)
 	AIManaged::NukeDetect(target);
 }
 
-void AIModule::onUnitDiscover(BWAPI::Unit unit)
+void AIModule::onUnitDiscover(BWAPI::Unit* unit)
 {
 	AIManaged::UnitDiscover(unit);
 }
 
-void AIModule::onUnitEvade(BWAPI::Unit unit)
+void AIModule::onUnitEvade(BWAPI::Unit* unit)
 {
 	AIManaged::UnitEvade(unit);
 }
 
-void AIModule::onUnitShow(BWAPI::Unit unit)
+void AIModule::onUnitShow(BWAPI::Unit* unit)
 {
 	AIManaged::UnitShow(unit);
 }
 
-void AIModule::onUnitHide(BWAPI::Unit unit)
+void AIModule::onUnitHide(BWAPI::Unit* unit)
 {
 	AIManaged::UnitHide(unit);
 }
 
-void AIModule::onUnitCreate(BWAPI::Unit unit)
+void AIModule::onUnitCreate(BWAPI::Unit* unit)
 {
 	AIManaged::UnitCreate(unit);
 }
 
-void AIModule::onUnitDestroy(BWAPI::Unit unit)
+void AIModule::onUnitDestroy(BWAPI::Unit* unit)
 {
 	AIManaged::UnitDestroy(unit);
 }
 
-void AIModule::onUnitMorph(BWAPI::Unit unit)
+void AIModule::onUnitMorph(BWAPI::Unit* unit)
 {
 	AIManaged::UnitMorph(unit);
 }
 
-void AIModule::onUnitRenegade(BWAPI::Unit unit)
+void AIModule::onUnitRenegade(BWAPI::Unit* unit)
 {
 	AIManaged::UnitRenegade(unit);
 }
@@ -104,12 +104,12 @@ void AIModule::onSaveGame(std::string gameName)
 	AIManaged::SaveGame(gcnew System::String(gameName.c_str()));
 }
 
-void AIModule::onUnitComplete(BWAPI::Unit unit)
+void AIModule::onUnitComplete(BWAPI::Unit *unit)
 {
 	AIManaged::UnitComplete(unit);
 }
 
-void AIModule::onPlayerDropped(BWAPI::Player player)
+void AIModule::onPlayerDropped(BWAPI::Player* player)
 {
 	AIManaged::PlayerDropped(player);
 }

@@ -8,14 +8,14 @@ namespace BroodWar
 {
 	namespace Api
 	{
-		Force^ ConvertForce(BWAPI::Force force)
+		Force^ ConvertForce(BWAPI::Force* force)
 		{
 			if(force == NULL)
 				return nullptr;
 			return gcnew Force(force);
 		}
 
-		Force::Force(BWAPI::Force force)
+		Force::Force(BWAPI::Force* force)
 		{
 			instance = force;
 		}
@@ -32,7 +32,7 @@ namespace BroodWar
 			
 		HashSet<Api::Player^>^ Force::Players::get()
 		{
-			return ToHashSet<BWAPI::Player, Player^>(instance->getPlayers(), &ConvertPlayer);
+			return ToHashSet<BWAPI::Player*, Player^>(instance->getPlayers(), &ConvertPlayer);
 		}
 
 		int Force::GetHashCode()

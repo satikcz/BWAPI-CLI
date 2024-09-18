@@ -153,6 +153,11 @@ namespace BroodWar
 			return ConvertEvent(BWAPI::Event::PlayerLeft(ConvertPlayer(player)));
 		}
 		
+		Event^ Event::PlayerDropped(Api::Player^ player)
+		{
+			return ConvertEvent(BWAPI::Event::PlayerDropped(ConvertPlayer(player)));
+		}
+		
 		Event^ Event::NukeDetect(Api::Position^ target)
 		{
 			return ConvertEvent(BWAPI::Event::NukeDetect(ConvertPosition(target)));

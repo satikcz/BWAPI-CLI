@@ -4,6 +4,8 @@ using System.Linq;
 using BroodWar;
 using BroodWar.Api;
 using BroodWar.Api.Enum;
+using BroodWar.Terrain;
+using BwRegion = BroodWar.Terrain.Region;
 
 namespace ExampleAIModule
 {
@@ -11,10 +13,10 @@ namespace ExampleAIModule
 	{
 		private bool _showBullets;
 		private bool _showVisibilityData;
-        //private bool _analized;
-        //private BwRegion _home;
-        //private BwRegion _enemyBase;
-        //private BackgroundWorker _terrainAnalyzer;
+		private bool _analized;
+		private BwRegion _home;
+		private BwRegion _enemyBase;
+		private BackgroundWorker _terrainAnalyzer;
 
 		public override void OnStart()
 		{
@@ -27,14 +29,14 @@ namespace ExampleAIModule
 			// Uncomment to enable complete map information
 			Game.EnableFlag(Flag.CompleteMapInformation);
 
-            ////read map information into BWTA so terrain analysis can be done in another thread
-            //TerrainAnalyzer.ReadMap();
-            //_analized = false;
-            //_terrainAnalyzer = new BackgroundWorker();
-            //_terrainAnalyzer.DoWork += DoAnalyze;
-            //_terrainAnalyzer.RunWorkerCompleted += AnalysisComplete;
-            //Game.Write("Analyzing map... this may take a minute");
-            //_terrainAnalyzer.RunWorkerAsync();
+			//read map information into BWTA so terrain analysis can be done in another thread
+			TerrainAnalyzer.ReadMap();
+			_analized = false;
+			_terrainAnalyzer = new BackgroundWorker();
+			_terrainAnalyzer.DoWork += DoAnalyze;
+			_terrainAnalyzer.RunWorkerCompleted += AnalysisComplete;
+			Game.Write("Analyzing map... this may take a minute");
+			_terrainAnalyzer.RunWorkerAsync();
 
 			if(Game.IsReplay)
 			{
@@ -100,7 +102,7 @@ namespace ExampleAIModule
 			//if our depot queue is empty and we have enouth supply and less than 16 workers
 			if(depot != null
 				&& !depot.TrainingQueue.Any()
-				&& Game.Self.SupplyTotal - Game.Self.SupplyUsed >= price.Supply
+				&& Game.Self.SupplyTotal() - Game.Self.SupplyUsed() >= price.Supply
 				&& Game.Self.Units.Count(u => u.UnitType == workerType) < 16)
 			{
 				if(depot.UnitType.Race.Type != RaceType.Zerg)
@@ -116,17 +118,17 @@ namespace ExampleAIModule
 			}
 
 			DrawStats();
-            //if(_analized && Game.FrameCount % 30 == 0)
-            //{
-            //    //order one of our workers to guard our chokepoint.
-            //    var worker = Game.Self.Units.First(u => u.UnitType.IsWorker);
+			if(_analized && Game.FrameCount % 30 == 0)
+			{
+				//order one of our workers to guard our chokepoint.
+				var worker = Game.Self.Units.First(u => u.UnitType.IsWorker);
 
-            //    var choke = _home.Chokepoints.OrderBy(c => c.Width).FirstOrDefault();
-            //    if(choke != null)
-            //        worker.RightClick(choke.Center, false);
-            //}
-            //if(_analized)
-            //    DrawTerrainData();
+				var choke = _home.Chokepoints.OrderBy(c => c.Width).FirstOrDefault();
+				if(choke != null)
+					worker.RightClick(choke.Center, false);
+			}
+			if(_analized)
+				DrawTerrainData();
 		}
 
 		public override void OnSendText(string text)
@@ -272,7 +274,7 @@ namespace ExampleAIModule
 			var line = 1;
 			foreach(var group in groups)
 			{
-				Game.DrawTextScreen(5, 16 * line, "{0} {1}s", group.Value, group.Key.Type);
+				Game.DrawTextScreen(5, 16 * line, "{0} {1}s", group.Value, group.Key);
 				line++;
 			}
 		}
@@ -314,7 +316,7 @@ namespace ExampleAIModule
 			}
 		}
 
-		/*private void DrawTerrainData()
+		private void DrawTerrainData()
 		{
 			//we will iterate through all the base locations, and draw their outlines
 			foreach(var baseLocation in TerrainAnalyzer.BaseLocations)
@@ -355,7 +357,7 @@ namespace ExampleAIModule
 				var p2 = chokepoint.Sides.Item2;
 				Game.DrawLineMap(p1.X, p1.Y, p2.X, p2.Y, Color.Red);
 			}
-		}*/
+		}
 
 		private void ShowPlayers()
 		{
@@ -377,7 +379,7 @@ namespace ExampleAIModule
 			}
 		}
 
-		/*private void DoAnalyze(object sender, DoWorkEventArgs args)
+		private void DoAnalyze(object sender, DoWorkEventArgs args)
 		{
 			TerrainAnalyzer.Analyze();
 		}
@@ -396,6 +398,6 @@ namespace ExampleAIModule
 
 			_analized = true;
 			Game.Write("Finished analyzing map.");
-		}*/
+		}
 	}
 }

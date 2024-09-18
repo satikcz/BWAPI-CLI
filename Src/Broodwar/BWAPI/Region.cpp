@@ -7,16 +7,16 @@ namespace BroodWar
 {
 	namespace Api
 	{
-		Region^ ConvertRegion(BWAPI::Region region)
+		Region^ ConvertRegion(BWAPI::Region* region)
 		{
 			if(region == NULL)
 				return nullptr;
 			return gcnew Region(region);
 		}
 
-		Region::Region(BWAPI::Region region)
+		Region::Region(BWAPI::Region *Region)
 		{
-			instance = region;
+			instance = Region;
 		}
 			
 		int Region::Id::get()
@@ -44,14 +44,14 @@ namespace BroodWar
 			return instance->getDefensePriority();
 		}
 
-		bool Region::IsAccessible::get()
+		bool Region::IsWalkable::get()
 		{
-			return instance->isAccessible();
+			return instance->isWalkable();
 		}
 
 		HashSet<Region^>^ Region::Neighbours::get()
 		{
-			return ToHashSet<BWAPI::Region, Region^>(instance->getNeighbors(), &ConvertRegion);
+			return ToHashSet<BWAPI::Region*, Region^>(instance->getNeighbors(), &ConvertRegion);
 		}
 
 		Rectangle Region::Bounds::get()

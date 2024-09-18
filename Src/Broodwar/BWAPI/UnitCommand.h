@@ -95,6 +95,8 @@ namespace BroodWar
 			
 			static bool operator == (UnitCommand^ first, UnitCommand^ second);
 			static bool operator != (UnitCommand^ first, UnitCommand^ second);
+			static bool operator < (UnitCommand^ first, UnitCommand^ second);
+			static bool operator > (UnitCommand^ first, UnitCommand^ second);
 		};
 
 		UnitCommand^ ConvertUnitCommand(BWAPI::UnitCommand command);

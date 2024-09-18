@@ -2,7 +2,6 @@
 #pragma unmanaged
 
 #include <BWAPI\Region.h>
-#include <BWAPI\Regionset.h>
 
 #pragma managed
 
@@ -19,9 +18,9 @@ namespace BroodWar
 		public ref class Region sealed : public IIdentifiedObject
 		{
 		internal:
-			BWAPI::Region instance;
+			BWAPI::Region *instance;
 
-			Region(BWAPI::Region region);
+			Region(BWAPI::Region *Region);
 
 		public:
 			virtual property int Id { int get(); }
@@ -29,7 +28,7 @@ namespace BroodWar
 			property Position^ Center { Position^ get(); }
 			property bool IsHigherGround { bool get(); }
 			property int DefensePriority { int get(); }
-			property bool IsAccessible { bool get(); }
+			property bool IsWalkable { bool get(); }
 			property HashSet<Region^>^ Neighbours { HashSet<Region^>^ get(); }
 			property System::Drawing::Rectangle Bounds { System::Drawing::Rectangle get(); }
 			property Region^ ClosestAccessibleRegion { Region^ get(); }
@@ -44,6 +43,6 @@ namespace BroodWar
 			static bool operator != (Region^ first, Region^ second);
 		};
 
-		Region^ ConvertRegion(BWAPI::Region region);
+		Region^ ConvertRegion(BWAPI::Region* region);
 	}
 }

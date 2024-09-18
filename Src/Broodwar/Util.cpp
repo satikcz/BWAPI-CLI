@@ -5,7 +5,7 @@
 using namespace System::IO;
 using namespace System::Runtime::InteropServices;
 
-extern BWAPI::GameWrapper BWAPI::Broodwar;
+extern BWAPI::Game* BWAPI::Broodwar;
 
 namespace BroodWar
 {
@@ -18,18 +18,6 @@ namespace BroodWar
 	{
 		return i;
 	}
-
-    BWAPI::Unitset ToUnitset(IEnumerable<Unit^>^ collection, BWAPI::Unit(*converter)(Unit^))
-    {
-        BWAPI::Unitset result;
-        BWAPI::Unit outelement;
-        for each(Unit^ element in collection)
-        {
-            outelement = (BWAPI::Unit const)(converter(element));
-            result.insert(outelement);
-        }
-        return result;
-    }
 
 	void Util::Log(String^ string)
 	{
@@ -54,23 +42,23 @@ namespace BroodWar
 		}
 	}
 
-	Api::Player^ Util::ConvertPlayer(void *player)
+	Api::Player^ Util::ConvertPlayer(BWAPI::Player* player)
 	{
-		return Api::ConvertPlayer(static_cast<BWAPI::Player>(player));
+		return Api::ConvertPlayer(player);
 	}
 
-	Api::Unit^ Util::ConvertUnit(void *unit)
+	Api::Unit^ Util::ConvertUnit(BWAPI::Unit* unit)
 	{
-        return Api::ConvertUnit(static_cast<BWAPI::Unit>(unit));
+		return Api::ConvertUnit(unit);
 	}
 
-	Api::Position^ Util::ConvertPosition(void *position)
+	Api::Position^ Util::ConvertPosition(BWAPI::Position position)
 	{
-        return Api::ConvertPosition(static_cast<BWAPI::Position*>(position));
+		return Api::ConvertPosition(position);
 	}
 
 	void Util::LoadGameInstance(BWAPI::Game* game)
 	{
-		BWAPI::BroodwarPtr = game;
+		BWAPI::Broodwar = game;
 	}
 }

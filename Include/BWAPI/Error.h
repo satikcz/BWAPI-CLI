@@ -1,106 +1,129 @@
 #pragma once
-#include <BWAPI/Type.h>
 #include <string>
-
+#include <set>
+#include "Type.h"
 namespace BWAPI
 {
   class UnitType;
 
-  /// <summary>Namespace containing error codes</summary>
-  /// @see Error
-  namespace Errors
-  {
-    /// <summary>Enumeration of Error types.</summary>
-    /// @see Error
-    namespace Enum
-    {
-      /// <summary>Enumeration of Error types.</summary>
-      /// @see Error
-      enum Enum
-      {
-        Unit_Does_Not_Exist,
-        Unit_Not_Visible,
-        Unit_Not_Owned,
-        Unit_Busy,
-        Incompatible_UnitType,
-        Incompatible_TechType,
-        Incompatible_State,
-        Already_Researched,
-        Fully_Upgraded,
-        Currently_Researching,
-        Currently_Upgrading,
-        Insufficient_Minerals,
-        Insufficient_Gas,
-        Insufficient_Supply,
-        Insufficient_Energy,
-        Insufficient_Tech,
-        Insufficient_Ammo,
-        Insufficient_Space,
-        Invalid_Tile_Position,
-        Unbuildable_Location,
-        Unreachable_Location,
-        Out_Of_Range,
-        Unable_To_Hit,
-        Access_Denied,
-        File_Not_Found,
-        Invalid_Parameter,
-        None,
-        Unknown,
-        MAX
-      };
-    };
-  };
-  
-  /// <summary>The Error object is generally used to determine why certain functions in BWAPI
-  /// have failed.</summary>
-  ///
-  /// For example, you may not have enough resources to construct a unit.
-  /// @see Game::getLastError, Game::setLastError, Errors
-  /// @ingroup TypeClasses
-  class Error : public Type<Error, Errors::Enum::Unknown>
+  /** Functions in BWAPI may set an error code. To retrieve the error code, call Game::getLastError. */
+  class Error : public Type
   {
   public:
-    /// @copydoc Type::Type(int)
-    constexpr Error(int id = Errors::Enum::None) : Type(id) {}
-  };
+    Error();
+    Error(int id);
 
-  /// @ingroup Types
+    /** Returns the name of the error. For example Errors::Insufficient_Minerals?.toString() will return a
+     * std::string object containing "Insufficient Minerals". */
+    std::string toString() const;
+    const char *c_str() const;
+  };
   namespace Errors
   {
-    /// <summary>Retrieves the set of all the error codes.</summary>
-    ///
-    /// @returns Set of error types.
-    const Error::set& allErrors();
-    
-    constexpr Error Unit_Does_Not_Exist{Enum::Unit_Does_Not_Exist};
-    constexpr Error Unit_Not_Visible{Enum::Unit_Not_Visible};
-    constexpr Error Unit_Not_Owned{Enum::Unit_Not_Owned};
-    constexpr Error Unit_Busy{Enum::Unit_Busy};
-    constexpr Error Incompatible_UnitType{Enum::Incompatible_UnitType};
-    constexpr Error Incompatible_TechType{Enum::Incompatible_TechType};
-    constexpr Error Incompatible_State{Enum::Incompatible_State};
-    constexpr Error Already_Researched{Enum::Already_Researched};
-    constexpr Error Fully_Upgraded{Enum::Fully_Upgraded};
-    constexpr Error Currently_Researching{Enum::Currently_Researching};
-    constexpr Error Currently_Upgrading{Enum::Currently_Upgrading};
-    constexpr Error Insufficient_Minerals{Enum::Insufficient_Minerals};
-    constexpr Error Insufficient_Gas{Enum::Insufficient_Gas};
-    constexpr Error Insufficient_Supply{Enum::Insufficient_Supply};
-    constexpr Error Insufficient_Energy{Enum::Insufficient_Energy};
-    constexpr Error Insufficient_Tech{Enum::Insufficient_Tech};
-    constexpr Error Insufficient_Ammo{Enum::Insufficient_Ammo};
-    constexpr Error Insufficient_Space{Enum::Insufficient_Space};
-    constexpr Error Invalid_Tile_Position{Enum::Invalid_Tile_Position};
-    constexpr Error Unbuildable_Location{Enum::Unbuildable_Location};
-    constexpr Error Unreachable_Location{Enum::Unreachable_Location};
-    constexpr Error Out_Of_Range{Enum::Out_Of_Range};
-    constexpr Error Unable_To_Hit{Enum::Unable_To_Hit};
-    constexpr Error Access_Denied{Enum::Access_Denied};
-    constexpr Error File_Not_Found{Enum::File_Not_Found};
-    constexpr Error Invalid_Parameter{Enum::Invalid_Parameter};
-    constexpr Error None{Enum::None};
-    constexpr Error Unknown{Enum::Unknown};
-  }
+    /** Given the name of an error, this function will return the error code. For example:
+     * Errors::getError("Unbuildable Location") will return Errors::Unbuildable_Location?. */
+    Error getError(std::string name);
 
-  static_assert(sizeof(Error) == sizeof(int), "Expected type to resolve to primitive size.");
+    /** The set of all the error codes. */
+    const std::set<Error>& allErrors();
+
+    void init();
+
+    /** Returned if you try to order a unit or get information from a unit that no longer exists. */
+    extern const Error Unit_Does_Not_Exist;
+
+    /** Returned if you try to retrieve information about a unit that is not currently visible or is dead. */
+    extern const Error Unit_Not_Visible;
+
+    /** Returned when attempting to order a unit that BWAPI does not own (i.e. can't order enemy army to go
+     *  away) */
+    extern const Error Unit_Not_Owned;
+
+    /** Returned when trying to order a unit to do something when it is performing another order or is in a
+     * state which prevents it from performing the desired order. For example, ordering a Terran Engineering
+     * Bay to upgrade something while it is already upgrading something else will return this error.
+     * Similarly, trying to train units from a factory that is lifted will return this error. */
+    extern const Error Unit_Busy;
+
+    /** Returned if you do something weird like try to build a Pylon with an SCV, or train Vultures in a
+     * Barracks, or order a Hydralisk to lay a spider mine. */
+    extern const Error Incompatible_UnitType;
+
+    /** Returned when trying to use a tech type with the wrong Unit::useTech method. */
+    extern const Error Incompatible_TechType;
+
+    /** Returned if you to do something like try to cancel an upgrade when the unit isn't upgrading. */
+    extern const Error Incompatible_State;
+
+    /** Returned if you try to research something that is already researched. */
+    extern const Error Already_Researched;
+
+    /** Returned if you try to upgrade something that is already fully upgraded. */
+    extern const Error Fully_Upgraded;
+
+    /** Returned if you try to research something that is already being researched. */
+    extern const Error Currently_Researching;
+
+    /** Returned if you try to upgrade something that is already being upgraded. */
+    extern const Error Currently_Upgrading;
+
+    /** Returned if you try to train or build something without enough minerals. */
+    extern const Error Insufficient_Minerals;
+
+    /** Returned if you try to train or build something without enough vespene gas. */
+    extern const Error Insufficient_Gas;
+
+    /** Returned if you try to train something without enough supply. */
+    extern const Error Insufficient_Supply;
+
+    /** Returned if you to do something like try to order a Defiler to cast a Dark Swarm without enough
+     * energy. */
+    extern const Error Insufficient_Energy;
+
+    /** Returned if you do something like try to train Medics when you don't have an Academy, or try to lay
+     * Spider Mines before spider mines have been researched. */
+    extern const Error Insufficient_Tech;
+
+    /** Returned if you do something like try to lay Spider Mines when your Vulture is out of Spider Mines.
+     * Same thing with Reavers and Scarabs. */
+    extern const Error Insufficient_Ammo;
+
+    /** Returned if you try to train more Interceptors than the Carrier can hold, try to train more Scarabs
+      * than a Reaver can hold, or try to load more units into a transport than there is space. */
+    extern const Error Insufficient_Space;
+
+    /** Returned if you try to build a barracks at TilePositions::None or something similar */
+    extern const Error Invalid_Tile_Position;
+
+    /** Returned if you try to construct a building on an unbuildable location */
+    extern const Error Unbuildable_Location;
+
+    /** Returned if you try to construct a building where the worker cannot reach based on static map data. */
+    extern const Error Unreachable_Location;
+
+    /** Returned if you order an immovable unit, like a Protoss Photon Cannon, to attack a unit that is out of
+     * range.*/
+    extern const Error Out_Of_Range;
+
+    /** Returned if you do something like order a Vulture to attack a flying unit. */
+    extern const Error Unable_To_Hit;
+
+    /** Returned if you try to get information that is not allowed with the given flag settings. For example,
+     * trying to read the enemy's resource counts while the CompleteMapInformation?  flag is not enabled will
+     * return this error. Similarly, trying to read the coordinates of the screen or mouse while the UserInput
+     *  flag is not enabled will also return this error. */
+    extern const Error Access_Denied;
+
+    /** Used when a file can't be found. */
+    extern const Error File_Not_Found;
+
+    /** Used for bad parameters, like passing NULL or an empty string. */
+    extern const Error Invalid_Parameter;
+
+    /** Used when no error has been encountered. */
+    extern const Error None;
+
+    /** Used when the error code is not recognized or can not be determined. */
+    extern const Error Unknown;
+  }
 }

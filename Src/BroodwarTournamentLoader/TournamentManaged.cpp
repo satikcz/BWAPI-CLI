@@ -1,6 +1,7 @@
 #pragma unmanaged
 
 #include <BWAPI.h>
+#include <BWTA.h>
 
 #pragma managed
 
@@ -80,7 +81,6 @@ namespace BroodWar
 			catch(Exception^ ex)
 			{
 				Util::LogException("OnAction", ex);
-                return false;
 			}
 		}
 		

@@ -6,8 +6,19 @@
 
 #include "AiBase.h"
 
+extern bool isInitialised;
+
 namespace BroodWar
 {
+	AiBase::AiBase()
+	{
+		if(!isInitialised)
+		{
+			isInitialised = true;
+			BWAPI::BWAPI_init();
+		}
+	}
+
 	void AiBase::OnStart() { }
 
 	void AiBase::OnEnd(bool isWinner) { }

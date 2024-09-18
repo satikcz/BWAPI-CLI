@@ -12,8 +12,6 @@
 #include "Enum\ExplosionType.h"
 #include "Enum\Targets.h"
 
-using namespace System;
-
 using namespace System::Collections::Generic;
 
 namespace BroodWar
@@ -124,11 +122,6 @@ namespace BroodWar
 			virtual int GetHashCode() override;
 			virtual bool Equals(Object^ o) override;
 			bool Equals(Weapon^ other);
-
-      virtual String^ ToString() override
-      {
-        return Type.ToString();
-      }
 
 			/// <summary>
 			/// Returns the set of all the Weapons

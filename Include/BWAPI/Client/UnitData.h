@@ -23,7 +23,6 @@ namespace BWAPI
     int killCount;
     int acidSporeCount;
     int scarabCount;
-    int interceptorCount;
     int spiderMineCount;
     int groundWeaponCooldown;
     int airWeaponCooldown;
@@ -57,8 +56,8 @@ namespace BWAPI
     int targetPositionY;
     int order;
     int orderTarget;
-    int orderTargetPositionX;
-    int orderTargetPositionY;
+	int orderTargetPositionX;
+	int orderTargetPositionY;
     int secondaryOrder;
     int rallyPositionX;
     int rallyPositionY;
@@ -101,7 +100,7 @@ namespace BWAPI
     bool isUnderStorm;
     bool isUnderDarkSwarm;
     bool isUnderDWeb;
-    bool isPowered;
+    bool isUnpowered;
     bool isVisible[9];
     int  buttonset;
 

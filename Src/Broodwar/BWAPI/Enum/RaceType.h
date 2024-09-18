@@ -11,13 +11,10 @@ namespace BroodWar
 				Zerg,
 				Terran,
 				Protoss,
-        Other,
-        Unused,
-        Select,
 				Random,
+				Other,
 				None,
 				Unknown,
-        MAX,
 			};
 		}
 	}

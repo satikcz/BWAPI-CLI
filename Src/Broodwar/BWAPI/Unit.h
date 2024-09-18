@@ -2,8 +2,7 @@
 #pragma unmanaged
 
 #include <BWAPI\Unit.h>
-#include <BWAPI\Unitset.h>
-//#pragma make_public(BWAPI::Unit)
+#pragma make_public(BWAPI::Unit)
 
 #pragma managed
 
@@ -13,6 +12,7 @@
 #include "UnitType.h"
 #include "Position.h"
 #include "Region.h"
+#include "TilePosition.h"
 #include "UnitCommand.h"
 #include "IIdentifiedObject.h"
 
@@ -47,9 +47,9 @@ namespace BroodWar
 		public ref class Unit sealed : public IIdentifiedObject
 		{
 		internal:
-			BWAPI::Unit instance;
+			BWAPI::Unit* instance;
 
-			Unit(BWAPI::Unit unit);
+			Unit(BWAPI::Unit* unit);
 
 		public:
 			/// <summary>
@@ -182,6 +182,11 @@ namespace BroodWar
 			/// Returns the player that last attacked this unit
 			/// </summary>
 			property Api::Player^ LastAttackingPlayer { Api::Player^ get(); }
+
+			/// <summary>
+			/// Returns the player's current upgrade level for the given upgrade, if the unit is affected by this upgrade
+			/// </summary>
+			int UpgradeLevel(Api::Upgrade^ upgrade);
 
 			/// <summary>
 			/// Returns the initial type of the unit or Unknown if it wasn't a neutral unit at the beginning of the game
@@ -563,12 +568,6 @@ namespace BroodWar
 			/// </summary>
 			property bool IsFollowing { bool get(); }
 
-      /// <summary>
-      /// Returns true if the unit is flying.
-      /// \see Unit::follow, Unit::getTarget
-      /// </summary>
-      property bool IsFlying { bool get(); }
-
 			/// <summary>
 			/// Returns true if the unit is in one of the four states for gathering gas (MoveToGas, WaitForGas, HarvestGas, ReturnGas).
 			/// \see Unit::isCarryingGas
@@ -748,7 +747,7 @@ namespace BroodWar
 			/// <summary>
 			/// Returns true if the unit is a Protoss building that is unpowered because no pylons are in range
 			/// </summary>
-			property bool IsPowered { bool get(); }
+			property bool IsUnpowered { bool get(); }
 
 			/// <summary>
 			/// Returns true if the unit is a building that is upgrading. See UpgradeTypes for the complete list of available upgrades in Broodwar.
@@ -794,7 +793,7 @@ namespace BroodWar
 			/// Orders the unit to build the given unit type at the given position. Note that if the player does not have enough resources when the unit attempts
 			/// to place the building down, the order will fail. The tile position specifies where the top left corner of the building will be placed
 			/// </summary>
-            bool Build(Api::Enum::UnitType type, Api::TilePosition^ target);
+			bool Build(Api::TilePosition^ target, Api::Enum::UnitType type);
 
 			/// <summary>
 			/// Orders the unit to build the given addon. The unit must be a Terran building that can have an addon and the specified unit type must be an addon unit type
@@ -1032,16 +1031,12 @@ namespace BroodWar
 			virtual int GetHashCode() override;
 			virtual bool Equals(Object^ o) override;
 			bool Equals(Unit^ other);
-      virtual String^ ToString() override
-      {
-        return UnitType->ToString() + " @ " + Position;
-      }
 
 			static bool operator == (Unit^ first, Unit^ second);
 			static bool operator != (Unit^ first, Unit^ second);
 		};
 
-		Api::Unit^ ConvertUnit(BWAPI::Unit unit);
-		BWAPI::Unit ConvertUnit(Api::Unit^ unit);
+		Api::Unit^ ConvertUnit(BWAPI::Unit* unit);
+		BWAPI::Unit* ConvertUnit(Api::Unit^ unit);
 	}
 }

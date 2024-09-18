@@ -69,6 +69,7 @@ namespace BroodWar
 			static Event^ SendText(String^ text);
 			static Event^ ReceiveText(Api::Player^ player, String^ text);
 			static Event^ PlayerLeft(Api::Player^ player);
+			static Event^ PlayerDropped(Api::Player^ player);
 			static Event^ NukeDetect(Api::Position^ target);
 			static Event^ UnitDiscover(Api::Unit^ unit);
 			static Event^ UnitEvade(Api::Unit^ unit);

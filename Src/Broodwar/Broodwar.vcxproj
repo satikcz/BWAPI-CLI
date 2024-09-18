@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -15,22 +15,17 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Broodwar</RootNamespace>
-    <SccProjectName>
-    </SccProjectName>
-    <SccAuxPath>
-    </SccAuxPath>
-    <SccLocalPath>
-    </SccLocalPath>
-    <SccProvider>
-    </SccProvider>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <SccProjectName>SAK</SccProjectName>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v100</PlatformToolset>
     <CLRSupport>true</CLRSupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -38,7 +33,7 @@
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v100</PlatformToolset>
     <CLRSupport>true</CLRSupport>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -53,23 +48,15 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Tools\msvc\14.13.26128\include;C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Tools\msvc\14.13.26128\atlmfc\include;C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\auxiliary\vs\include;C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt;$(IncludePath)</IncludePath>
-    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\Lib\Debug;$(LibraryPath)</LibraryPath>
     <TargetName>Broodwar</TargetName>
-    <ExcludePath>$(ExcludePath)</ExcludePath>
-    <ReferencePath>$(ReferencePath);$(VC_ReferencesPath_x86);</ReferencePath>
-    <LibraryWPath>$(LibraryWPath);$(WindowsSDK_MetadataPath);</LibraryWPath>
-    <SourcePath>$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Tools\msvc\14.13.26128\include;C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Tools\msvc\14.13.26128\atlmfc\include;C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\auxiliary\vs\include;C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt;$(IncludePath)</IncludePath>
-    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\Lib\Release;$(LibraryPath)</LibraryPath>
     <TargetName>Broodwar</TargetName>
-    <ExcludePath>$(ExcludePath)</ExcludePath>
-    <SourcePath>$(SourcePath)</SourcePath>
-    <LibraryWPath>$(LibraryWPath);$(WindowsSDK_MetadataPath);</LibraryWPath>
-    <ReferencePath>$(ReferencePath);$(VC_ReferencesPath_x86);</ReferencePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -86,18 +73,15 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
       <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
-      <AdditionalIncludeDirectories>..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
-      <AdditionalDependencies>BWAPId.lib;BWAPIClientd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>BWAPId.lib;BWAPIClientd.lib;BWTAd.lib;mpfrd.lib;mpird.lib;tinyxmld.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <TargetMachine>MachineX86</TargetMachine>
       <NoEntryPoint>false</NoEntryPoint>
       <AdditionalOptions>
       </AdditionalOptions>
-      <AdditionalLibraryDirectories>..\..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <GenerateMapFile>true</GenerateMapFile>
     </Link>
     <PostBuildEvent>
       <Command>sn -R "$(TargetPath)" "$(SolutionDir)bwapicli.snk"</Command>
@@ -120,19 +104,17 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
       <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
-      <AdditionalIncludeDirectories>..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>BWAPI.lib;BWAPIClient.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>BWAPI.lib;BWAPIClient.lib;BWTA.lib;mpfr.lib;mpir.lib;tinyxml.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <TargetMachine>MachineX86</TargetMachine>
       <NoEntryPoint>false</NoEntryPoint>
       <AdditionalOptions>
       </AdditionalOptions>
-      <AdditionalLibraryDirectories>..\..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>sn -R "$(TargetPath)" "$(SolutionDir)bwapicli.snk"</Command>
@@ -159,8 +141,12 @@
     <ClCompile Include="BWAPI\UnitCommand.cpp" />
     <ClCompile Include="BWAPI\UnitType.cpp" />
     <ClCompile Include="BWAPI\Upgrade.cpp" />
-    <ClCompile Include="BWAPI\WalkPosition.cpp" />
     <ClCompile Include="BWAPI\Weapon.cpp" />
+    <ClCompile Include="BWTA\BaseLocation.cpp" />
+    <ClCompile Include="BWTA\Chokepoint.cpp" />
+    <ClCompile Include="BWTA\Polygon.cpp" />
+    <ClCompile Include="BWTA\Region.cpp" />
+    <ClCompile Include="BWTA\TerrainAnalyzer.cpp" />
     <ClCompile Include="EnumMapping.cpp" />
     <ClCompile Include="TournamentBase.cpp" />
     <ClCompile Include="Util.cpp" />
@@ -209,8 +195,13 @@
     <ClInclude Include="BWAPI\UnitCommand.h" />
     <ClInclude Include="BWAPI\UnitType.h" />
     <ClInclude Include="BWAPI\Upgrade.h" />
-    <ClInclude Include="BWAPI\WalkPosition.h" />
     <ClInclude Include="BWAPI\Weapon.h" />
+    <ClInclude Include="BWTA\BaseLocation.h" />
+    <ClInclude Include="BWTA\Chokepoint.h" />
+    <ClInclude Include="BWTA\Polygon.h" />
+    <ClInclude Include="BWTA\RectangleArray.h" />
+    <ClInclude Include="BWTA\Region.h" />
+    <ClInclude Include="BWTA\TerrainAnalyzer.h" />
     <ClInclude Include="EnumClassMap.h" />
     <ClInclude Include="EnumMapping.h" />
     <ClInclude Include="TournamentBase.h" />

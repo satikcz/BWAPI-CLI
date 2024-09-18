@@ -96,11 +96,6 @@ namespace BroodWar
 			virtual bool Equals(Object^ o) override;
 			bool Equals(Upgrade^ other);
 
-      virtual String^ ToString() override
-      {
-        return Type.ToString();
-      }
-
 			static property List<Upgrade^>^ AllUpgrades { List<Upgrade^>^ get(); }
 
 			static bool operator == (Upgrade^ first, Upgrade^ second);

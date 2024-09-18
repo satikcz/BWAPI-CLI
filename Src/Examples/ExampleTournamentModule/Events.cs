@@ -35,7 +35,7 @@ namespace ExampleTournamentModule
 			pos -= new Position(320, 200);
 			pos.MakeValid();
 
-			if(pos.CalcApproximateDistance(CurrentEvent.Position) <= 200)
+			if(pos.ApproximateDistance(CurrentEvent.Position) <= 200)
 			{
 				CurrentEvent.Priority += priority;
 				CurrentEvent.Timer += timer;
@@ -44,10 +44,10 @@ namespace ExampleTournamentModule
 				return;
 			}
 
-			var evt = EventsList.FirstOrDefault(e => e.Position != null && pos.CalcApproximateDistance(e.Position) >= 600);
+			var evt = EventsList.FirstOrDefault(e => e.Position != null && pos.ApproximateDistance(e.Position) >= 600);
 			if(evt != null)
 			{
-				if(pos.CalcApproximateDistance(evt.Position) > 200)
+				if(pos.ApproximateDistance(evt.Position) > 200)
 				{
 					pos += evt.Position + pos;
 					evt.Position = new Position(pos.X / 2, pos.Y / 3);

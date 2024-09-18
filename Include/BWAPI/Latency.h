@@ -1,12 +1,8 @@
 #pragma once
 namespace BWAPI
 {
-  /// <summary>Contains enumeration of known latency values.</summary>
-  /// @see Game::getLatency
   namespace Latency
   {
-    /// <summary>Contains enumeration of known latency values.</summary>
-    /// @see Game::getLatency
     enum Enum
     {
       SinglePlayer    = 2,
